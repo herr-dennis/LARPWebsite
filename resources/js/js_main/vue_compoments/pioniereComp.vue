@@ -1,0 +1,195 @@
+<script setup>
+
+import {onMounted, ref} from "vue";
+import placeHolder from "./../../images/gunnar.jpg";
+const pioniers = ref([]);
+
+ async function getPioniere(){
+
+     const response = await fetch("/api/ueber-uns/pioniere", {
+         headers:  {"Accept": "application/json"}
+         })
+
+       const data = await response.json();
+
+     console.log(data)
+
+     pioniers.value = data;
+
+
+}
+
+
+
+
+ onMounted( async ()=>{
+     await getPioniere();
+ });
+
+
+</script>
+
+<template>
+
+
+    <div class="steckbriefWrapper"  >
+        <div  v-for="pionier in pioniers" :key="pionier" class="steckbriefContainer">
+
+            <p class="steckbriefContainer__p"  >Quartett {{pionier.name}}</p>
+            <img loading="lazy" :src="placeHolder" alt="SteckbriefLogo" >
+
+            <label class="steckbriefContainer__label"  >Bewaffnung:</label>
+            <p class="steckbriefContainer__p"  >{{pionier.waffen}}</p>
+            <label class="steckbriefContainer__label" >Rang</label>
+            <p  class="steckbriefContainer__p" >{{pionier.rang}}</p>
+            <label class="steckbriefContainer__label" >Dienstjahre:</label>
+            <p class="steckbriefContainer__p" >{{pionier.dienstjahre}}</p>
+            <label class="steckbriefContainer__label" >Geburtstag:</label>
+            <p class="steckbriefContainer__p" >{{pionier.geburtstag}}</p>
+            <label class="steckbriefContainer__label" >Beschreibung</label>
+            <blockquote class="steckbriefContainer__blockquote" >{{pionier.text}}</blockquote>
+
+
+        </div>
+
+    </div>
+
+
+
+</template>
+
+<style scoped lang="scss">
+
+.steckbriefWrapper{
+    display: flex;
+    flex-wrap: wrap;
+    gap:40px;
+    justify-content: center;
+    padding: 40px 20px 80px;
+}
+/* einzelne Karte */
+.steckbriefContainer{
+    position: relative;
+    width: 450px;
+    background: rgba(26, 28, 28, 0.5);
+    padding: 16px;
+    font-family: "Cinzel", cursive;
+    min-height:640px;
+
+    background:
+        linear-gradient(
+                180deg,
+                rgba(32, 34, 36, 0.88) 0%,
+                rgba(20, 21, 23, 0.92) 55%,
+                rgba(12, 12, 12, 0.95) 100%
+        );
+
+    border: 1px solid rgba(150, 130, 90, 0.55);
+
+    box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.06),
+        inset 0 -8px 30px rgba(0,0,0,0.55),
+        0 12px 30px rgba(0,0,0,0.45),
+        0 0 0 3px rgba(25,25,25,0.6);
+
+    backdrop-filter: blur(5px);
+    overflow: hidden;
+    color: #ddd4c5;
+
+}
+/* Titel oben */
+.steckbriefContainer__p:first-of-type {
+    margin: 0 0 18px 0;
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    color: #f0e7d2;
+    text-shadow:
+        0 1px 0 #000,
+        0 0 8px rgba(255,255,255,0.05);
+    position: relative;
+    padding-bottom: 12px;
+    border-bottom: 1px solid rgba(170, 145, 88, 0.22);
+}
+.steckbriefContainer__label{
+    font-size: 12px;
+    display: block;
+    margin-top: 5px;
+}
+
+/* Werte */
+.steckbriefContainer__p {
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.45;
+    color: #e3dccf;
+}
+
+
+.steckbriefContainer img{
+    width: 100%;
+    height: 460px;
+    object-fit: cover;
+    border: 2px solid #5e1b1b;
+    margin-bottom: 12px;
+
+
+}
+.steckbriefContainer__label {
+    display: block;
+    margin-top: 12px;
+    margin-bottom: 4px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: #b79b63;
+    text-shadow: 0 1px 0 #000;
+}
+
+/* leichtes Ornament  */
+.steckbriefContainer::after{
+    content:"";
+    position: absolute;
+    top: 0;
+    left: -20%;
+    width: 70%;
+    height: 100%;
+
+    background: linear-gradient(
+            115deg,
+            rgba(255, 255, 255, 0.05) 0% ,
+            rgba(255, 255, 255, 0.015) 35% ,
+            rgba(255,255,255,0.0) 70%
+      );
+
+}
+/* Beschreibung */
+.steckbriefContainer__blockquote {
+    margin: 14px 0 0 0;
+    padding: 12px 14px;
+    border-left: 3px solid rgba(169, 132, 70, 0.75);
+    border-radius: 6px;
+    background: rgba(255,255,255,0.03);
+    color: #d7cfbf;
+    font-style: italic;
+    line-height: 1.55;
+    box-shadow: inset 0 0 12px rgba(0,0,0,0.25);
+}
+
+
+.steckbriefContainer::before {
+    content: "";
+    position: absolute;
+    inset: 10px;
+    border-radius: 12px;
+    border: 1px solid rgba(185, 158, 103, 0.25);
+    pointer-events: none;
+    box-shadow:
+        inset 0 0 12px rgba(201, 169, 92, 0.06),
+        0 0 10px rgba(0,0,0,0.2);
+}
+
+
+</style>

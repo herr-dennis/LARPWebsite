@@ -1,0 +1,202 @@
+<script setup>
+import {computed, onMounted, ref} from "vue";
+
+const csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+import { useAuthStore } from '../stores/authStore.js'
+const authStore = useAuthStore();
+const admin = computed( ()=> authStore.adminState)
+const isLoggedIn = computed( ()=> authStore.isLoggedIn)
+const showInsertWindow = ref(false);
+const msg = ref("");
+const stories = ref([]);
+const showAlertDialog = ref(false);
+
+import AlertDialog from "./altertWindow.vue"
+
+//Einstellungen
+//Images
+const baseUrl = "/storage/";
+
+const props = defineProps({
+    postUrl: {
+        type: String,
+        required: true
+    },
+    getUrl: {
+        type: String,
+        required: true
+    }
+});
+
+async function handleInsertAction(){
+
+    const text = document.getElementById("inputFormText").value;
+    const title = document.getElementById("inputFormTitle").value;
+    const fileInput = document.getElementById("inputFormData");
+    const file = fileInput.files[0];
+
+    const formData = new FormData();
+    formData.append("title", title);
+    formData.append("text", text);
+
+    if(file){
+        formData.append("image", file);
+    }
+
+    try{
+
+        const response = await fetch(props.postUrl, {
+            method: "POST",
+            headers: {
+                "X-CSRF-TOKEN": csrf,
+                "Accept": "application/json"
+            },
+            body: formData
+        });
+
+        const data = await response.json();
+
+        if(!response.ok){
+            msg.value = data.message || "Fehler beim Speichern";
+            return;
+        }
+
+        msg.value = data.message || "Erfolgreich gespeichert";
+        await getStories();
+    }catch(error){
+        msg.value = "Server nicht erreichbar";
+
+    }
+}
+
+function toggleInsertWindow(){
+    if(showInsertWindow.value){
+        showInsertWindow.value = false;
+    }else {
+        showInsertWindow.value = true;
+    }
+}
+
+//OnMounted
+async function getStories() {
+    try {
+        const response = await fetch(props.getUrl, {
+            headers: {
+                "X-CSRF-TOKEN": csrf,
+                "Accept": "application/json"
+            }
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            msg.value = data.message || "Fehler beim Abrufen";
+            return;
+        }
+
+        stories.value = data;
+
+    } catch (error) {
+        msg.value = "Server nicht erreichbar";
+
+    }
+}
+
+onMounted(() => {
+    getStories();
+});
+
+//aus NewLine einen <p> machen.
+function escapeHtml(text) {
+    return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+}
+
+function openDialog(id) {
+    showAlertDialog.value = true;
+}
+
+function handleDelete() {
+    showAlertDialog.value = false;
+    console.log('Löschen bestätigt');
+}
+function nl2p(text) {
+    if (!text) return "";
+
+    return text
+        .split(/\n+/)
+        .filter(line => line.trim() !== "")
+        .map(line => `<p>${escapeHtml(line)}</p>`)
+        .join("");
+}
+
+
+</script>
+
+<template>
+
+    <teleport to="#StoryHeader"  >
+        <div class="defaultContainer"    >
+            <p>Liste der Geschichten</p>
+            <div class="defaultContainer__a" >
+                <div >
+                    <a
+                        v-for="story in stories"
+                        :key="story.id"
+                        :href="'#' + story.id"
+                    >
+                        {{ story.title }}
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+    </teleport>
+    <div class="DefaultBtnContainer">
+        <div class="defaultBtn"  v-if="isLoggedIn && admin">
+            <button type="button"  @click="toggleInsertWindow" class="FormDefaultContainer__Button"  >Neuer Eintrage verfassen</button>
+        </div>
+
+    </div>
+
+       <div  v-show="showInsertWindow"  class="FormDefaultContainer">
+           <form  class="FormDefaultContainer__Form"    enctype="multipart/form-data" @submit.prevent="handleInsertAction">
+               <label  class="FormDefaultContainer__Label" >Title</label>
+               <input id="inputFormTitle" class="FormDefaultContainer__Input"  type="text" placeholder="Titel"/>
+               <label class="FormDefaultContainer__Label" >Text</label>
+               <textarea class="FormDefaultContainer__TextAreaInput" id="inputFormText" placeholder="Text"></textarea>
+               <input id="inputFormData" class="FormDefaultContainer__Input"  type="file" name="image" >
+               <label>Pro eingefügter Text ein Bild. Wenn ein Text mehrere Bilder haben soll,dann einfach Text splitten und Title weglassen.</label>
+               <button type="submit"  class="FormDefaultContainer__Button">Einfügen</button>
+               <label  class="FormDefaultContainer__Label">{{msg}} </label>
+                <button   type="button" class="FormDefaultContainer__Button"   @click.stop="toggleInsertWindow" >Schließen</button>
+           </form>
+       </div>
+
+    <div v-for="story in stories" :key="story.id" :id="story.id" class="defaultContainer">
+
+        <button type="button" class="DefaultBtn" v-if="isLoggedIn&&admin"  @click.stop="openDialog(story.id)" >Löschen</button>
+
+        <h2 v-if="story.title">{{ story.title}}</h2>
+
+        <div v-html="nl2p(story.text)"></div>
+
+        <img loading="lazy" v-if="story.image" :src="baseUrl + story.image" alt="Bild">
+
+    </div>
+
+    <AlertDialog
+        :open="showAlertDialog"
+        @close="showAlertDialog = false"
+        @confirm="handleDelete"
+    />
+
+</template>
+
+<style scoped lang="scss">
+@use "../../../../resources/css/css_main/defaultForm.scss";
+@use "../../../../resources/css/css_main/defaultButton";
+</style>

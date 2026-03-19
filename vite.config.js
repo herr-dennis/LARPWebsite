@@ -1,0 +1,21 @@
+import { defineConfig } from 'vite';
+import laravel from 'laravel-vite-plugin';
+import tailwindcss from '@tailwindcss/vite';
+import vue from '@vitejs/plugin-vue';
+
+export default defineConfig({
+    plugins: [
+        vue(),
+        laravel({
+            input: ['resources/css/css_main/main.scss', 'resources/js/js_main/main.js'],
+            refresh: true,
+        }),
+        //tailwindcss(),
+    ],
+    resolve: {
+        //alias: {vue: "vue/dist/vue.esm-bundler.css_main"},
+    },
+    build: {
+        sourcemap: true, // Stelle sicher, dass Source Maps generiert werden
+    },
+});
