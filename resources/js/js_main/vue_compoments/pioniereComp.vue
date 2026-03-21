@@ -1,9 +1,27 @@
 <script setup>
 
-import {onMounted, ref} from "vue";
+const csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
+import { useAuthStore } from '../stores/authStore.js'
+const authStore = useAuthStore();
+const admin = computed( ()=> authStore.adminState)
+const isLoggedIn = computed( ()=> authStore.isLoggedIn)
+const isMember = computed(()=> authStore.isMember);
+import {computed, onMounted, ref, watch} from "vue";
 import placeHolder from "./../../images/gunnar.jpg";
 const pioniers = ref([]);
+const showInsertDialog = ref(false);
+const name = ref("")
+const rang = ref("")
+const geburtstag = ref("")
+const text = ref("")
+const waffen = ref("")
+const dienstjahre = ref("")
+watch(isMember, (newValue) => {
+    console.log("Role geladen:", newValue);
+});
 
+const image = ref(null)
+const previewUrl = ref(null)
  async function getPioniere(){
 
      const response = await fetch("/api/ueber-uns/pioniere", {
@@ -19,24 +37,112 @@ const pioniers = ref([]);
 
 }
 
+function toggleInsetCharWindow(){
 
+     if(showInsertDialog.value){
+         showInsertDialog.value = false;
+     }else {
+         showInsertDialog.value = true;
+     }
 
+}
 
  onMounted( async ()=>{
      await getPioniere();
+
+
+
+
  });
 
+
+async function insertPioniere(){
+
+    const formData = new FormData();
+
+    formData.append("name", name.value);
+    formData.append("rang", rang.value);
+    formData.append("geburtstag", geburtstag.value);
+    formData.append("text", text.value);
+    formData.append("waffen", waffen.value);
+    formData.append("dienstjahre", dienstjahre.value);
+    formData.append("image", image.value);
+
+
+
+    const response = await fetch("/api/ueber-uns/pioniere", {
+        method: "POST",
+        headers: {
+            "Accept": "application/json",
+            "X-CSRF-TOKEN": csrf,
+        },
+        body: formData
+    })
+
+    if(!response.ok){
+        alert("Fehler")
+    }
+
+    const data = await response.json();
+
+     pioniers.value = data;
+
+
+
+
+
+}
+
+function handleInsertClick(){
+
+    insertPioniere();
+
+}
+
+function handleFileChange(event) {
+    const file = event.target.files[0]
+    image.value = file
+
+    if (file) {
+        previewUrl.value = URL.createObjectURL(file)
+    }
+}
+
+async function deletePioniere(id){
+
+    const response = await fetch("/api/ueber-uns/pioniere/"+id, {
+        method: "DELETE",
+        headers:
+            {"Accept": "application/json",
+             "X-CSRF-TOKEN": csrf,}
+
+    });
+
+    if(!response){
+        alert("Fehler");
+    }
+    const data = await response.json();
+    pioniers.value=data;
+
+}
+
+function handleRemoveClick(id){
+
+    console.log("handleRemoveClick", id);
+    deletePioniere(id);
+}
 
 </script>
 
 <template>
 
-
     <div class="steckbriefWrapper"  >
-        <div  v-for="pionier in pioniers" :key="pionier" class="steckbriefContainer">
+        <div  v-for="pionier in pioniers" :key="pionier.id" class="steckbriefContainer">
+
+            <button class="steckbriefContainer__button"  @click="handleRemoveClick(pionier.id)" >X</button>
 
             <p class="steckbriefContainer__p"  >Quartett {{pionier.name}}</p>
-            <img loading="lazy" :src="placeHolder" alt="SteckbriefLogo" >
+            <img loading="lazy" :src="'/storage/'+pionier.image" alt="SteckbriefLogo" >
 
             <label class="steckbriefContainer__label"  >Bewaffnung:</label>
             <p class="steckbriefContainer__p"  >{{pionier.waffen}}</p>
@@ -49,16 +155,61 @@ const pioniers = ref([]);
             <label class="steckbriefContainer__label" >Beschreibung</label>
             <blockquote class="steckbriefContainer__blockquote" >{{pionier.text}}</blockquote>
 
-
         </div>
 
     </div>
+
+    <div v-show="isLoggedIn && admin "  class="plus-insert-container" >
+            <button  @click="toggleInsetCharWindow"  class="plus-insert-container__button" >    + </button>
+    </div>
+
+
+    <div     v-show="showInsertDialog" class="FormDefaultContainer" >
+        <form @submit.prevent="handleInsertClick" class="FormDefaultContainer__Form">
+
+            <label class="FormDefaultContainer__Label">Name</label>
+            <input v-model="name" class="FormDefaultContainer__Input" type="text" placeholder="Name" />
+
+            <label class="FormDefaultContainer__Label">Rang</label>
+            <input v-model="rang" class="FormDefaultContainer__Input"  placeholder="Wenn kein Geheimnis"  type="text" />
+
+            <label class="FormDefaultContainer__Label">Dienstjahre</label>
+            <input v-model="dienstjahre" class="FormDefaultContainer__Input"   placeholder="Wenn kein Geheimnis"  type="text" />
+
+            <label class="FormDefaultContainer__Label">Waffen</label>
+            <input v-model="waffen" class="FormDefaultContainer__Input"  placeholder="Wenn kein Geheimnis"  type="text" />
+
+            <label class="FormDefaultContainer__Label">Geburtstag</label>
+            <input v-model="geburtstag" class="FormDefaultContainer__Input"  placeholder="Wenn kein Geheimnis"  type="text" />
+
+            <label class="FormDefaultContainer__Label">Beschreibung</label>
+            <textarea v-model="text" class="FormDefaultContainer__TextAreaInput"></textarea>
+            <input type="file" @change="handleFileChange">
+            <img v-if="previewUrl" :src="previewUrl" />
+            <button type="submit" class="FormDefaultContainer__Button">
+                Einfügen
+            </button>
+
+            <button @click="toggleInsetCharWindow" type="button" class="FormDefaultContainer__delete">
+                Schließen
+            </button>
+
+        </form>
+    </div>
+
+
 
 
 
 </template>
 
+
 <style scoped lang="scss">
+
+@import '../../../../resources/css/css_main/defaultButton';
+@import '../../../../resources/css/css_main/defaultForm';
+@import '../../../../resources/css/css_main/plus_insert_btn';
+
 
 .steckbriefWrapper{
     display: flex;
@@ -189,6 +340,11 @@ const pioniers = ref([]);
     box-shadow:
         inset 0 0 12px rgba(201, 169, 92, 0.06),
         0 0 10px rgba(0,0,0,0.2);
+}
+
+.steckbriefContainer__button{
+    position: relative;
+    z-index: 11;
 }
 
 

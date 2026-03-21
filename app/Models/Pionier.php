@@ -10,5 +10,15 @@ class Pionier extends Model
     use HasFactory;
 
 
+    protected $fillable =[
+        "name",
+        "waffen",
+        "rang",
+        "image",
+        "geburtstag",
+        "dienstjahre",
+         "text"
+    ];
+
 
 }

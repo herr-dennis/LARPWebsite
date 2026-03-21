@@ -11,10 +11,9 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-
 Route::get('/pictures', function () {
 
-    $path = storage_path('app/public/gallery');
+    $path = public_path('images/gallery');
 
     if (!File::exists($path)) {
         return response()->json([]);
@@ -23,7 +22,7 @@ Route::get('/pictures', function () {
     $files = File::files($path);
 
     $urls = collect($files)->map(function ($file) {
-        return asset('storage/gallery/' . $file->getFilename());
+        return asset('images/gallery/' . $file->getFilename());
     });
 
     return response()->json($urls);

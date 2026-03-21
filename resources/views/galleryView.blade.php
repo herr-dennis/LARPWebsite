@@ -2,6 +2,8 @@
 
 
 @section("main_content")
+
+
     <div class="defaultContainer" >
         <p>
             Willkommen !

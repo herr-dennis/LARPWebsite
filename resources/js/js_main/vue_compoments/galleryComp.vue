@@ -71,7 +71,6 @@ onBeforeUnmount(() => {
 </template>
 
 <style scoped lang="scss">
-
 .galleryContainer {
     display: flex;
     justify-content: center;
@@ -83,17 +82,22 @@ onBeforeUnmount(() => {
 .gallery {
     width: 100%;
     max-width: 1400px;
-    height: 70vh; // 🔥 70% der Bildschirmhöhe
-    background: rgba(20, 20, 20, 0.75);
-    backdrop-filter: blur(6px);
-    border-radius: 16px;
-    padding: 1rem;
+    height: 70vh;
+    background:
+        linear-gradient(145deg, rgba(55, 18, 18, 0.88), rgba(20, 20, 20, 0.9));
+    backdrop-filter: blur(4px);
+    border-radius: 10px;
+    padding: 0.45rem; /* dünnerer Rahmen */
+    border: 2px solid rgba(120, 30, 30, 0.95);
+    box-shadow:
+        0 0 0 1px rgba(170, 70, 70, 0.35),
+        0 12px 35px rgba(0, 0, 0, 0.65),
+        inset 0 1px 0 rgba(255, 180, 180, 0.08),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.45);
 
     display: flex;
     justify-content: center;
     align-items: center;
-
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7);
 }
 
 /* Slider */
@@ -104,14 +108,16 @@ onBeforeUnmount(() => {
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
+    border-radius: 8px;
 }
 
 /* Bild bleibt IMMER gleich groß */
 .slideImage {
     width: 100%;
     height: 100%;
-    object-fit: cover;   // 🔥 Bild füllt Container
-    border-radius: 12px;
+    object-fit: cover;
+    border-radius: 6px;
     transition: opacity 0.5s ease;
 }
 
@@ -120,40 +126,83 @@ onBeforeUnmount(() => {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background: rgba(0,0,0,0.5);
-    color: white;
-    border: none;
-    font-size: 2.5rem;
-    padding: 0.6rem 1.2rem;
+    background: linear-gradient(180deg, rgba(95, 20, 20, 0.9), rgba(45, 10, 10, 0.92));
+    color: #f3e7e7;
+    border: 1px solid rgba(160, 70, 70, 0.9);
+    font-size: 2.2rem;
+    padding: 0.45rem 1rem;
     cursor: pointer;
-    border-radius: 10px;
+    border-radius: 6px;
     transition: 0.2s ease;
     backdrop-filter: blur(3px);
+    box-shadow:
+        0 4px 14px rgba(0, 0, 0, 0.45),
+        inset 0 1px 0 rgba(255, 180, 180, 0.15);
+    z-index: 2;
 }
 
 .nav:hover {
-    background: rgba(163, 32, 32, 0.9);
+    background: linear-gradient(180deg, rgba(140, 30, 30, 0.96), rgba(75, 15, 15, 0.96));
+    transform: translateY(-50%) scale(1.04);
 }
 
 .nav.left {
-    left: 20px;
+    left: 18px;
 }
 
 .nav.right {
-    right: 20px;
+    right: 18px;
 }
 
-/* Mobile Anpassung */
+/* Tablet */
 @media (max-width: 900px) {
     .gallery {
         height: 55vh;
+        padding: 0.35rem;
+    }
+
+    .nav {
+        font-size: 2rem;
+        padding: 0.35rem 0.8rem;
+    }
+
+    .nav.left {
+        left: 10px;
+    }
+
+    .nav.right {
+        right: 10px;
     }
 }
 
+/* Mobile */
 @media (max-width: 600px) {
     .gallery {
         height: 45vh;
+        padding: 0.3rem;
+        border-radius: 8px;
+    }
+
+    .slider {
+        border-radius: 6px;
+    }
+
+    .slideImage {
+        border-radius: 4px;
+    }
+
+    .nav {
+        font-size: 1.7rem;
+        padding: 0.25rem 0.65rem;
+    }
+
+    /* weiter außen */
+    .nav.left {
+        left: 4px;
+    }
+
+    .nav.right {
+        right: 4px;
     }
 }
-
 </style>

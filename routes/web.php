@@ -67,7 +67,9 @@ Route::get('/me', function () {
         ],401);
     }
 
-    return response()->json(Auth::user());
+    return response()->json(
+        Auth::user()->only(['id', 'name', 'role'])
+    );
 });
 
 
@@ -404,7 +406,7 @@ Route::delete("/api/ueber-uns/{name}/{id}",function(Request $request ,$name,$id)
     }
 
     return response()->json(["message" => "API-Call nicht gefunden"], 400);
-});
+})->where('name' , 'donnerfels' | 'eckland' | 'talagrad');
 
 
 
@@ -423,5 +425,71 @@ Route::get("/api/ueber-uns/pioniere",function(){
 
 
 
+Route::post("/api/ueber-uns/pioniere",function(Request $request){
+
+    if (!Auth::check() || (Auth::user()->role === 2 ) || (Auth::user()->role ===3)) {
+        return response()->json(['message' => 'Unauthorized'], 401);
+    }
 
 
+
+    $name = $request->input('name') ;
+    $text = $request->input('text') ;
+    $waffen = $request->input('waffen') ;
+    $geburtstag = $request->input('geburtstag') ;
+    $rang  = $request->input('rang');
+    $dienstjahre = $request->input('dienstjahre');
+
+
+    $path = null;
+
+    try {
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+
+            if ($image->isValid()) {
+                $path = $image->store('Pioniere', 'public');
+            }
+        }
+    } catch (\Exception $e) {
+        return response()->json(['message' => $e->getMessage()], 502);
+    }
+
+    try{
+        $data = Pionier::query()->create([
+            'name' => $name,
+            'text' => $text,
+            'waffen' => $waffen,
+            'geburtstag' => $geburtstag,
+            'dienstjahre' => $dienstjahre,
+            'rang' => $rang,
+            'image' => $path
+
+        ]);
+        $newData= Pionier::all();
+        return response()->json($newData, 200);
+
+    }catch (\Exception $e){
+        return response()->json(["message" => $e->getMessage()], 500);
+    }
+
+});
+
+
+
+Route::delete("/api/ueber-uns/pioniere/{id}",function(Request $request,  $id){
+
+    if (!Auth::check()&& Auth::user()->role ===1) {
+        return response()->json(['message' => 'Unauthorized'], 401);
+    }
+    try{
+
+        Pionier::query()->where('id',$id)->delete();
+        $data = Pionier::all();
+        return response()->json($data);
+
+    }catch (Exception $e){
+        return response()->json(['message' => "Datenfehler"], 500);
+    }
+
+});

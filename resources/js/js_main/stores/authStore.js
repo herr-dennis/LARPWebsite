@@ -4,13 +4,15 @@ export const useAuthStore = defineStore('auth', {
     state: () => ({
         user: null,
         auth:false,
-        admin:false
+        admin:false,
+        role:null
     }),
     //Getter Methode
     getters: {
         isLoggedIn: (state) => !!state.user,
         authState: (state) => !!state.auth,
         adminState: (state) => !!state.admin,
+        isMember: (state) => !!state.role,
     },
 
     actions: {
@@ -41,10 +43,15 @@ export const useAuthStore = defineStore('auth', {
                 if(data.role === 1) {
                    this.admin = true;
                 }
+                if(data.role === 2 || data.role === 1 ) {
+                    this.role = data.role;
+
+                }
+
 
             } catch (error) {
                 this.user = null
-                console.error(error)
+
             }
         },
 
