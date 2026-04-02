@@ -37,7 +37,9 @@ class DatabaseSeeder extends Seeder
 
       */
 
-        Pionier::factory()->count(10)->create();
+       // Pionier::factory()->count(10)->create();
+
+        User::factory()->count(10)->create();
 
     }
 }

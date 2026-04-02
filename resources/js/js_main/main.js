@@ -7,7 +7,7 @@ const el = document.getElementById('app')
 const pinia = createPinia()
 
 const app = createApp(RootApp, {
-    page: el.dataset.page || 'home'
+    page: el.dataset.page || 'default'
 })
 
 app.use(pinia)

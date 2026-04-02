@@ -6,19 +6,10 @@
 
     <div class="defaultContainer" >
         <p>
-            Willkommen !
-            <br>
-            <br>
-            <br>
-            Work in progress .....
-            <br>
-            <br>
-            <br>
-            Komme bald wieder!
-
+            Stöbere, viele Fotos sind von Fotografen, lasst Anerkennung da, und besucht ihr SocialMedia Accounts
         </p>
     </div>
-    <div id="app" data-page="gallery"></div>
+    <div id="app" data-page="medienGallery"></div>
 @endsection
 
 

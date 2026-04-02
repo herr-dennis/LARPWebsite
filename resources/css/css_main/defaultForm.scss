@@ -135,6 +135,18 @@
     font-size: 0.95rem;
 }
 
+/* Desktop */
+@media (min-width: 705px) {
+   .FormDefaultContainer__Form{
+       margin-top: 140px;
+   }
+
+    .FormDefaultContainer img {
+        width: 300px;
+        height:300px;
+    }
+}
+
 
 
 
@@ -159,7 +171,7 @@
     backdrop-filter: blur(4px);
     padding: 2rem;
     border-radius: 8px;
-    width: 100%;
+    width: 80%;
     max-width: 400px;
 
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
@@ -206,6 +218,11 @@
     display: flex;
     flex-direction: column;
     gap: 0.4rem;
+}
+
+.form-group li {
+    list-style: none;
+    color:whitesmoke;
 }
 
 /* Wrapper für beide Formulare */

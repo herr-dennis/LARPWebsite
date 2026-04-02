@@ -1,27 +1,23 @@
 <script setup>
 
 const csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-import { useAuthStore } from '../stores/authStore.js'
+import {useAuthStore} from '../stores/authStore.js'
+import {computed, onMounted, ref} from "vue";
+
 const authStore = useAuthStore();
 const admin = computed( ()=> authStore.adminState)
 const isLoggedIn = computed( ()=> authStore.isLoggedIn)
-const isMember = computed(()=> authStore.isMember);
-import {computed, onMounted, ref, watch} from "vue";
-import placeHolder from "./../../images/gunnar.jpg";
 const pioniers = ref([]);
 const showInsertDialog = ref(false);
-const name = ref("")
-const rang = ref("")
-const geburtstag = ref("")
-const text = ref("")
-const waffen = ref("")
-const dienstjahre = ref("")
-watch(isMember, (newValue) => {
-    console.log("Role geladen:", newValue);
-});
-
+const name = ref("Geheim")
+const rang = ref("Geheim")
+const geburtstag = ref("Geheim")
+const text = ref("Geheim")
+const waffen = ref("Geheim")
+const dienstjahre = ref("Geheim")
 const image = ref(null)
 const previewUrl = ref(null)
+
  async function getPioniere(){
 
      const response = await fetch("/api/ueber-uns/pioniere", {
@@ -49,12 +45,7 @@ function toggleInsetCharWindow(){
 
  onMounted( async ()=>{
      await getPioniere();
-
-
-
-
  });
-
 
 async function insertPioniere(){
 
@@ -78,25 +69,23 @@ async function insertPioniere(){
         },
         body: formData
     })
-
     if(!response.ok){
         alert("Fehler")
     }
-
-    const data = await response.json();
-
-     pioniers.value = data;
-
-
-
-
-
+    pioniers.value = await response.json();
 }
+
+
+addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && showInsertDialog.value) {
+        toggleInsetCharWindow();
+    }
+});
 
 function handleInsertClick(){
 
     insertPioniere();
-
+   toggleInsetCharWindow();
 }
 
 function handleFileChange(event) {
@@ -121,9 +110,7 @@ async function deletePioniere(id){
     if(!response){
         alert("Fehler");
     }
-    const data = await response.json();
-    pioniers.value=data;
-
+    pioniers.value=await response.json();
 }
 
 function handleRemoveClick(id){
@@ -184,8 +171,8 @@ function handleRemoveClick(id){
 
             <label class="FormDefaultContainer__Label">Beschreibung</label>
             <textarea v-model="text" class="FormDefaultContainer__TextAreaInput"></textarea>
-            <input type="file" @change="handleFileChange">
-            <img v-if="previewUrl" :src="previewUrl" />
+            <input required  type="file" @change="handleFileChange">
+            <img  v-if="previewUrl" :src="previewUrl" />
             <button type="submit" class="FormDefaultContainer__Button">
                 Einfügen
             </button>
@@ -197,19 +184,12 @@ function handleRemoveClick(id){
         </form>
     </div>
 
-
-
-
-
 </template>
-
-
 <style scoped lang="scss">
 
 @import '../../../../resources/css/css_main/defaultButton';
 @import '../../../../resources/css/css_main/defaultForm';
 @import '../../../../resources/css/css_main/plus_insert_btn';
-
 
 .steckbriefWrapper{
     display: flex;
@@ -346,6 +326,5 @@ function handleRemoveClick(id){
     position: relative;
     z-index: 11;
 }
-
 
 </style>

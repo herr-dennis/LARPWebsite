@@ -22,18 +22,22 @@
 
 <main>
 
+
+
     @section("main_content")
     @show
 
 </main>
 
 
-<footer>
+<footer  class="footer-container" >
+
     <div class="footer">
-        <a class="footer__a">Impressum</a>
-        <a class="footer__a">Datenschutz</a>
+        <a href="/Impressum"  class="footer__a">Impressum</a>
+        <a  href="/Datenschutz" class="footer__a">Datenschutz</a>
         <a class="footer__a">Schwarz&Web</a>
     </div>
+
 </footer>
 
 </body>

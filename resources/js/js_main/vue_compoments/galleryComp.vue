@@ -60,8 +60,9 @@ onBeforeUnmount(() => {
 
                 <img
                     v-if="galleryURLs.length"
-                    :src="galleryURLs[currentIndex]"
+                    :src="'storage/'+galleryURLs[currentIndex]"
                     class="slideImage"
+                    loading="lazy"
                 />
 
                 <button class="nav right" @click="next">›</button>

@@ -8,6 +8,8 @@ const currentRubrik = ref("");
 const currentTopic = ref("");
 const errorWidow = ref(false);
 const posts = ref([]);
+const answerText = ref("");
+const insertPostWindow = ref(false);
 
     onMounted(async ()=>{
 
@@ -33,9 +35,8 @@ const posts = ref([]);
        }catch(error){
            displayErrorWindow("Network Error");
        }
-
-
     }
+
 
     function displayErrorWindow(error){
         errorWidow.value = true;
@@ -48,6 +49,44 @@ const posts = ref([]);
       posts.value= await getPosts();
       console.log(posts.value);
 });
+
+//"/api/rubrik/{rubic}/topics/{topic}/posts"
+async function insertPost(){
+
+    const user = authStore.user.name;
+
+    const response = await  fetch(`/api/rubrik/${currentRubrik.value}/topics/${currentTopic.value}/posts`,{
+        method: 'POST',
+        headers:{
+            'X-CSRF-TOKEN': csrf,
+            'Accept': 'application/json',
+            'content-type': 'application/json'
+        },
+        body: JSON.stringify({text:answerText.value , verfasser:user})
+    });
+
+
+    if (!response.ok){
+        alert("Fehler");
+
+        return;
+    }
+
+    const data = await response.json();
+    posts.value=data;
+    toggleInsertPostWindow();
+}
+
+
+function toggleInsertPostWindow(){
+    insertPostWindow.value = !insertPostWindow.value;
+
+}
+
+function handleAntwortInsert(){
+    insertPost();
+
+}
 
 function formatDate(timestamp) {
     const date = new Date(timestamp)
@@ -65,13 +104,149 @@ function formatDate(timestamp) {
         <label  class="ForumContainer__date">{{  formatDate(post.created_at) }}</label>
         <span class="ForumContainer__antwortPfeil" ></span>
     </div>
-        <button class="ForumContainer__button" >Antworten</button>
+        <button  @click="toggleInsertPostWindow()" class="ForumContainer__button" >Antworten</button>
 
     </div>
+
+
+
+    <div class="AnswerContainer" v-if="insertPostWindow">
+        <form   @submit.prevent="handleAntwortInsert" class="AnswerContainer__form">
+            <label for="postInputText">Ihre Antwort</label>
+            <textarea
+                class="AnswerContainer__text"
+                id="postInputText"
+                placeholder="Schreiben Sie Ihre Antwort..."
+                v-model="answerText"
+            ></textarea>
+            <button class="AnswerContainer__button" type="submit">Antworten</button>
+        </form>
+    </div>
+
+
+
+
 </template>
 
 <style scoped lang="scss">
+.AnswerContainer{
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+}
 
+.AnswerContainer__form{
+    width: min(900px, 90%);
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    padding: 1.5rem 1.5rem 1.8rem 1.5rem;
+    border-radius: 18px;
+
+    background: rgba(15, 15, 15, 0.78);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    border: 1px solid rgba(201, 176, 120, 0.28);
+    border-left: 5px solid rgb(155, 0, 0);
+
+    box-shadow:
+        0 8px 30px rgba(0,0,0,0.35),
+        inset 0 1px 0 rgba(255,255,255,0.03);
+}
+
+.AnswerContainer__form label{
+    font-size: 1.8rem;
+    color: #e3d7b2;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-weight: 500;
+}
+
+.AnswerContainer__text{
+    width: 100%;
+    min-height: 180px;
+    resize: vertical;
+
+    padding: 1rem 1.1rem;
+    border-radius: 12px;
+    border: 1px solid rgba(201, 176, 120, 0.18);
+
+    background: rgba(0, 0, 0, 0.28);
+    color: #f1e7cc;
+
+    font-size: 1.15rem;
+    line-height: 1.6;
+    font-family: inherit;
+
+    outline: none;
+    box-sizing: border-box;
+
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+}
+
+.AnswerContainer__text::placeholder{
+    color: rgba(241, 231, 204, 0.45);
+}
+
+.AnswerContainer__text:focus{
+    border-color: rgba(201, 176, 120, 0.5);
+    box-shadow: 0 0 0 3px rgba(201, 176, 120, 0.08);
+    background: rgba(0, 0, 0, 0.38);
+}
+
+.AnswerContainer__button{
+    align-self: center;
+    min-width: 220px;
+    padding: 0.9rem 2.2rem;
+
+    border-radius: 14px;
+    border: 1px solid rgba(201, 176, 120, 0.22);
+    border-left: 4px solid rgb(155, 0, 0);
+
+    background: rgba(20, 20, 20, 0.82);
+    color: #e9ddbb;
+
+    font-size: 1.5rem;
+    font-family: inherit;
+    cursor: pointer;
+
+    transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.AnswerContainer__button:hover{
+    transform: translateY(-1px);
+    background: rgba(35, 35, 35, 0.9);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+}
+
+.AnswerContainer__button:active{
+    transform: translateY(0);
+}
+
+@media (max-width: 768px){
+    .AnswerContainer__form{
+        width: 95%;
+        padding: 1rem;
+        border-radius: 14px;
+    }
+
+    .AnswerContainer__form label{
+        font-size: 1.4rem;
+    }
+
+    .AnswerContainer__text{
+        min-height: 140px;
+        font-size: 1rem;
+    }
+
+    .AnswerContainer__button{
+        width: 100%;
+        font-size: 1.2rem;
+    }
+}
 .ForumContainer__button{
     margin: 6px auto;
     padding: 14px 20px;

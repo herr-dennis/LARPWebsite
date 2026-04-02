@@ -1,6 +1,5 @@
 <script setup>
-import {computed, onMounted, ref} from "vue";
-
+import {computed,  onMounted, ref, watch} from "vue";
 const csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
 import { useAuthStore } from '../stores/authStore.js'
 const authStore = useAuthStore();
@@ -10,7 +9,7 @@ const showInsertWindow = ref(false);
 const msg = ref("");
 const stories = ref([]);
 const showAlertDialog = ref(false);
-
+const currentDeleteStory = ref(null);
 import AlertDialog from "./altertWindow.vue"
 
 //Einstellungen
@@ -62,12 +61,41 @@ async function handleInsertAction(){
         }
 
         msg.value = data.message || "Erfolgreich gespeichert";
-        await getStories();
+        toggleInsertWindow();
+         await getStories();
+        const el = await existsDomElement(stories.value[stories.value.length - 1].id);
+        el.scrollIntoView({ behavior: "smooth" });
+
     }catch(error){
         msg.value = "Server nicht erreichbar";
 
     }
 }
+
+function existsDomElement(id, maxAttempts = 15, intervalTime = 50) {
+    let attempts = 0;
+    return new Promise((resolve) => {
+        const interval = setInterval(() => {
+            const el = document.getElementById(id);
+            attempts++;
+            if (el) {
+                clearInterval(interval);
+                resolve(el);
+            }
+
+            if (attempts >= maxAttempts) {
+                clearInterval(interval);
+                resolve(null);
+            }
+        }, intervalTime);
+    });
+}
+
+addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && showInsertWindow.value) {
+        toggleInsertWindow()
+    }
+});
 
 function toggleInsertWindow(){
     if(showInsertWindow.value){
@@ -116,11 +144,33 @@ function escapeHtml(text) {
 
 function openDialog(id) {
     showAlertDialog.value = true;
+    currentDeleteStory.value = id;
 }
 
-function handleDelete() {
+ async function deleteStorys(){
+
+
+    const response = await fetch(props.postUrl+"/"+currentDeleteStory.value, {
+        method: "DELETE",
+        headers:{
+            "X-CSRF-TOKEN": csrf,
+            "Accept": "application/json"
+        }
+    });
+     if(!response.ok){
+          alert("Fehler beim Löschvorgang");
+     }
+
+
+     const data = await response.json();
+     stories.value = data;
+
+
+}
+
+function handleDelete(id) {
     showAlertDialog.value = false;
-    console.log('Löschen bestätigt');
+    deleteStorys();
 }
 function nl2p(text) {
     if (!text) return "";

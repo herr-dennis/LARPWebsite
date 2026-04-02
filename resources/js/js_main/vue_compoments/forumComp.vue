@@ -5,13 +5,12 @@ import {useAuthStore} from "../stores/authStore.js";
 
 const authStore = useAuthStore()
 const isLoggedIn = computed(() => authStore.isLoggedIn)
-const authState = computed(() => {authStore.authState})
 const msg = ref("");
 const csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
 const rubrics = ref([]);
 const wantInsertRubric= ref(false);
 const msgInsertRubrik=ref("");
-
+const isMember = computed(() => authStore.isMember);
 
 const showAlertDialog = ref(false);
 const rubricToDelete = ref(null)
@@ -31,7 +30,6 @@ const rubricToDelete = ref(null)
     }catch(error){
         msg.value="Network Error"
     }
-
 };
 
 
@@ -83,10 +81,7 @@ async function insertRubrik(rubrik){
         msgInsertRubrik.value="Network Error"+error;
     }
 
-
-
 }
-
 
 function HandleDeleteRubric(id){
     rubricToDelete.value = id
@@ -121,7 +116,7 @@ async function deleteRubrik(id){
     }
 
     const data = await response.json();
-    console.log(data.message);
+    rubrics.value=data;
 
 }
 
@@ -134,9 +129,6 @@ function HandleInsertRubrik(){
 
 }
 
-
-
-
 </script>
 
 <template>
@@ -147,7 +139,7 @@ function HandleInsertRubrik(){
         <h2>Forum – Rubriken</h2>
     </div>
     <div  class="ForumContainer">
-        <button  @click="showFormInsertRubric()" class="ForumContainer__button">Neue Rubrik</button>
+        <button  v-if="isLoggedIn&&isMember"   @click="showFormInsertRubric()" class="ForumContainer__button">Neue Rubrik</button>
 
         <div v-for="rubric in rubrics"  @click="moveToTopic(rubric.id)"  class="ForumContainer__topics">
             <label>{{rubric.rubric_name}} ({{rubric.id}})</label> <button @click.stop="HandleDeleteRubric(rubric.id)"   class="ForumContainer__delete" >X</button>
@@ -160,6 +152,8 @@ function HandleInsertRubrik(){
 
     </div>
 
+
+    <!-- Einfüge Formular -->
     <div class="FormRubricContainer" v-if="isLoggedIn&&wantInsertRubric" >
         <form class="FormRubricContainer__Form" @submit.prevent="HandleInsertRubrik()">
             <label class="FormRubricContainer__Label"  >Rubrik</label>

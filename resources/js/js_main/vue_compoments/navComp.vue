@@ -1,12 +1,15 @@
 
 <script setup>
-import {computed, onMounted, ref} from 'vue';
+import {computed, onMounted, ref, watch} from 'vue';
 import logo from '../../images/logo_deus_taal.png'
 import {useAuthStore} from "../stores/authStore.js";
 const lang = document.documentElement.lang;
 const authStore = useAuthStore();
 const hoverUser = ref(false)
 let currentRoutes = null;
+const hoverUserMobile = ref(false);
+const hoverUserMobileState = ref(false);
+const admin = computed( ()=> authStore.adminState)
 
 //Hier werden Routen gesetzt, für mehrsprachig Website
 const routes = {
@@ -133,12 +136,21 @@ onMounted(async () => {
         }
     });
 });
+
+watch(isLogged, (change)=>{
+    if(change){
+        hoverUserMobileState.value=true;
+        toggleHoverUser();
+    }else{
+        hoverUserMobileState.value=false;
+    }
+});
+
 function toggleDrawerSubmenu(key) {
     openDrawerSubmenu.value = openDrawerSubmenu.value === key ? null : key
 }
 // Mobile: welches Submenü ist offen?
 const openDrawerSubmenu = ref(null) // z.B. 3
-
 
 function getRoutes(lang){
     if(lang === 'de'){
@@ -148,6 +160,14 @@ function getRoutes(lang){
     return routes.de;
 }
 
+function toggleHoverUser(){
+    const intervall = setInterval(()=>{
+        hoverUserMobile.value = !hoverUserMobile.value;
+        if(!hoverUserMobileState.value){
+            clearInterval(intervall);
+        }
+    },1400);
+}
 function directionTo(path) {
     if (!path) {
         window.location.href = "/"
@@ -210,6 +230,15 @@ function directionTo(path) {
             >
                 {{ currentRoutes[7].label }}
             </li>
+
+            <li
+              v-if="admin"
+              class="nav__li"
+              @click="directionTo('admin')"
+            >
+              Admin
+            </li>
+
         </ul>
         <!--
         <div class="nav__lang">
@@ -281,11 +310,9 @@ function directionTo(path) {
 
 
                     <li v-if="isLogged" class="nav-layer__li "
-                        @mouseenter="hoverUser = true"
-                        @mouseleave="hoverUser = false"
-                        @click="hoverUser && logout()"
+                        @click="logout()"
                     >
-                        {{ hoverUser ? "Logout" : "Angemeldet: "+authStore.user.name }}
+                        {{  hoverUserMobile ? "Logout" : authStore.user.name}}
 
                     </li>
 
@@ -297,6 +324,16 @@ function directionTo(path) {
                     >
                         {{ currentRoutes[7].label }}
                     </li>
+
+                    <li
+                        v-if="admin"
+                        class="nav__li"
+                        @click="directionTo('admin')"
+                    >
+                        Admin
+                    </li>
+
+
                 </ul>
 
                 <button class="nav_btn" id="closeBtn" aria-label="Menü schließen">&#10005;</button>

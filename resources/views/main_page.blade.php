@@ -9,6 +9,9 @@
     <div class="banner-container">
         <h1 class="banner-container__title">
             Willkommen auf unserer Website!
+
+           !!!! In der Entwicklung !!!
+
         </h1>
     </div>
     <div class="vue-mount" data-component="Gallery"  ></div>

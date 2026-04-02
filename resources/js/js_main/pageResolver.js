@@ -15,6 +15,8 @@ export function resolvePageComponent(page) {
         talagrad:defineAsyncComponent(() => import('./vue_compoments/storyEditor.vue')),
         pioniere: defineAsyncComponent(() => import('./vue_compoments/pioniereComp.vue')),
         medien: defineAsyncComponent(() => import('./vue_compoments/medienComp.vue')),
+        admin: defineAsyncComponent(() => import('./vue_compoments/adminComp.vue')),
+        medienGallery: defineAsyncComponent(() => import('./vue_compoments/medienGalleryComp.vue')),
     };
 
     return pageMap[page] || null;

@@ -2,9 +2,10 @@
 
 use App\Models\Rubric;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 
 Route::get('/user', function (Request $request) {
@@ -12,20 +13,19 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::get('/pictures', function () {
+    $files = Storage::disk('public')->files('Gallery');
 
-    $path = public_path('images/gallery');
-
-    if (!File::exists($path)) {
-        return response()->json([]);
-    }
-
-    $files = File::files($path);
-
-    $urls = collect($files)->map(function ($file) {
-        return asset('images/gallery/' . $file->getFilename());
+    $files = array_filter($files, function ($file) {
+        return basename($file) !== '.gitignore';
     });
 
-    return response()->json($urls);
+    $files = array_values($files);
+
+    if (count($files) > 10) {
+        $files = Arr::random($files, 10);
+    }
+
+    return response()->json($files);
 });
 
 
