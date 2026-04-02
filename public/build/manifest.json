@@ -1,0 +1,260 @@
+{
+  "resources/css/css_main/main.scss": {
+    "file": "assets/main-z62khsUj.css",
+    "src": "resources/css/css_main/main.scss",
+    "isEntry": true,
+    "name": "main",
+    "names": [
+      "main.css"
+    ]
+  },
+  "resources/css/images/background_final.png": {
+    "file": "assets/background_final-C_kOT3aN.png",
+    "src": "resources/css/images/background_final.png"
+  },
+  "resources/js/images/donnfelsLogo.png": {
+    "file": "assets/donnfelsLogo-bRJKBWYP.png",
+    "src": "resources/js/images/donnfelsLogo.png"
+  },
+  "resources/js/images/ecklandLogo.png": {
+    "file": "assets/ecklandLogo-Rxw3N7fX.png",
+    "src": "resources/js/images/ecklandLogo.png"
+  },
+  "resources/js/images/handwerk/catapult_transparent.png": {
+    "file": "assets/catapult_transparent-D5dwJjq8.png",
+    "src": "resources/js/images/handwerk/catapult_transparent.png"
+  },
+  "resources/js/images/handwerk/pottery_transparent.png": {
+    "file": "assets/pottery_transparent-BaykYiXt.png",
+    "src": "resources/js/images/handwerk/pottery_transparent.png"
+  },
+  "resources/js/images/handwerk/shield_transparent.png": {
+    "file": "assets/shield_transparent-C7PQpN7h.png",
+    "src": "resources/js/images/handwerk/shield_transparent.png"
+  },
+  "resources/js/images/handwerk/smith_transparent.png": {
+    "file": "assets/smith_transparent-Cu4QzqCw.png",
+    "src": "resources/js/images/handwerk/smith_transparent.png"
+  },
+  "resources/js/images/logo_deus_taal.png": {
+    "file": "assets/logo_deus_taal-DjcUnOmi.png",
+    "src": "resources/js/images/logo_deus_taal.png"
+  },
+  "resources/js/images/medien/bilder.png": {
+    "file": "assets/bilder-B2NY-Il2.png",
+    "src": "resources/js/images/medien/bilder.png"
+  },
+  "resources/js/images/medien/liedgut.png": {
+    "file": "assets/liedgut-DXPqpI7h.png",
+    "src": "resources/js/images/medien/liedgut.png"
+  },
+  "resources/js/images/medien/theater.png": {
+    "file": "assets/theater-j6cIHjTz.png",
+    "src": "resources/js/images/medien/theater.png"
+  },
+  "resources/js/images/newTaalLogo.png": {
+    "file": "assets/newTaalLogo-D3VdWwXb.png",
+    "src": "resources/js/images/newTaalLogo.png"
+  },
+  "resources/js/js_main/main.js": {
+    "file": "assets/main-DFuWxlsT.js",
+    "name": "main",
+    "src": "resources/js/js_main/main.js",
+    "isEntry": true,
+    "dynamicImports": [
+      "resources/js/js_main/vue_compoments/galleryComp.vue",
+      "resources/js/js_main/vue_compoments/loginCom.vue",
+      "resources/js/js_main/vue_compoments/kontaktComp.vue",
+      "resources/js/js_main/vue_compoments/handwerkCardsComp.vue",
+      "resources/js/js_main/vue_compoments/storyCardsComp.vue",
+      "resources/js/js_main/vue_compoments/forumComp.vue",
+      "resources/js/js_main/vue_compoments/topicForumComp.vue",
+      "resources/js/js_main/vue_compoments/postsForumComp.vue",
+      "resources/js/js_main/vue_compoments/storyEditor.vue",
+      "resources/js/js_main/vue_compoments/storyEditor.vue",
+      "resources/js/js_main/vue_compoments/storyEditor.vue",
+      "resources/js/js_main/vue_compoments/pioniereComp.vue",
+      "resources/js/js_main/vue_compoments/medienComp.vue",
+      "resources/js/js_main/vue_compoments/adminComp.vue",
+      "resources/js/js_main/vue_compoments/medienGalleryComp.vue"
+    ],
+    "css": [
+      "assets/main-BR0BptPQ.css"
+    ],
+    "assets": [
+      "assets/logo_deus_taal-DjcUnOmi.png"
+    ]
+  },
+  "resources/js/js_main/vue_compoments/adminComp.vue": {
+    "file": "assets/adminComp-DhxUrTq5.js",
+    "name": "adminComp",
+    "src": "resources/js/js_main/vue_compoments/adminComp.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/js_main/main.js"
+    ],
+    "css": [
+      "assets/adminComp-Bi1_Wrrt.css"
+    ]
+  },
+  "resources/js/js_main/vue_compoments/forumComp.vue": {
+    "file": "assets/forumComp-B-6ZQeoY.js",
+    "name": "forumComp",
+    "src": "resources/js/js_main/vue_compoments/forumComp.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/js_main/main.js"
+    ],
+    "css": [
+      "assets/forumComp-bv2_9uQE.css"
+    ]
+  },
+  "resources/js/js_main/vue_compoments/galleryComp.vue": {
+    "file": "assets/galleryComp-Cl5i55XR.js",
+    "name": "galleryComp",
+    "src": "resources/js/js_main/vue_compoments/galleryComp.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/js_main/main.js"
+    ],
+    "css": [
+      "assets/galleryComp-C9MPZhY0.css"
+    ]
+  },
+  "resources/js/js_main/vue_compoments/handwerkCardsComp.vue": {
+    "file": "assets/handwerkCardsComp-zgum8893.js",
+    "name": "handwerkCardsComp",
+    "src": "resources/js/js_main/vue_compoments/handwerkCardsComp.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/js_main/main.js"
+    ],
+    "css": [
+      "assets/handwerkCardsComp-Djk_TPo3.css"
+    ],
+    "assets": [
+      "assets/catapult_transparent-D5dwJjq8.png",
+      "assets/smith_transparent-Cu4QzqCw.png",
+      "assets/pottery_transparent-BaykYiXt.png",
+      "assets/shield_transparent-C7PQpN7h.png"
+    ]
+  },
+  "resources/js/js_main/vue_compoments/kontaktComp.vue": {
+    "file": "assets/kontaktComp-B4IixuiI.js",
+    "name": "kontaktComp",
+    "src": "resources/js/js_main/vue_compoments/kontaktComp.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/js_main/main.js"
+    ],
+    "css": [
+      "assets/kontaktComp-CHzEHdRM.css"
+    ]
+  },
+  "resources/js/js_main/vue_compoments/loginCom.vue": {
+    "file": "assets/loginCom-BxCsf5wv.js",
+    "name": "loginCom",
+    "src": "resources/js/js_main/vue_compoments/loginCom.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/js_main/main.js"
+    ],
+    "css": [
+      "assets/loginCom-CINUqEux.css"
+    ]
+  },
+  "resources/js/js_main/vue_compoments/medienComp.vue": {
+    "file": "assets/medienComp-BDifo9co.js",
+    "name": "medienComp",
+    "src": "resources/js/js_main/vue_compoments/medienComp.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/js_main/main.js"
+    ],
+    "css": [
+      "assets/medienComp-BKoHEJi9.css"
+    ],
+    "assets": [
+      "assets/liedgut-DXPqpI7h.png",
+      "assets/bilder-B2NY-Il2.png",
+      "assets/theater-j6cIHjTz.png"
+    ]
+  },
+  "resources/js/js_main/vue_compoments/medienGalleryComp.vue": {
+    "file": "assets/medienGalleryComp-pAE-FtyM.js",
+    "name": "medienGalleryComp",
+    "src": "resources/js/js_main/vue_compoments/medienGalleryComp.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/js_main/main.js"
+    ],
+    "css": [
+      "assets/medienGalleryComp-Da6p_FCS.css"
+    ]
+  },
+  "resources/js/js_main/vue_compoments/pioniereComp.vue": {
+    "file": "assets/pioniereComp-BanRNle3.js",
+    "name": "pioniereComp",
+    "src": "resources/js/js_main/vue_compoments/pioniereComp.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/js_main/main.js"
+    ],
+    "css": [
+      "assets/pioniereComp-COP56xfh.css"
+    ]
+  },
+  "resources/js/js_main/vue_compoments/postsForumComp.vue": {
+    "file": "assets/postsForumComp-DVkZbagX.js",
+    "name": "postsForumComp",
+    "src": "resources/js/js_main/vue_compoments/postsForumComp.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/js_main/main.js"
+    ],
+    "css": [
+      "assets/postsForumComp-Bbix_Cc7.css"
+    ]
+  },
+  "resources/js/js_main/vue_compoments/storyCardsComp.vue": {
+    "file": "assets/storyCardsComp-bO0Kenrx.js",
+    "name": "storyCardsComp",
+    "src": "resources/js/js_main/vue_compoments/storyCardsComp.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/js_main/main.js"
+    ],
+    "css": [
+      "assets/storyCardsComp-CPdlYtQR.css"
+    ],
+    "assets": [
+      "assets/newTaalLogo-D3VdWwXb.png",
+      "assets/donnfelsLogo-bRJKBWYP.png",
+      "assets/ecklandLogo-Rxw3N7fX.png"
+    ]
+  },
+  "resources/js/js_main/vue_compoments/storyEditor.vue": {
+    "file": "assets/storyEditor--ra2iMHu.js",
+    "name": "storyEditor",
+    "src": "resources/js/js_main/vue_compoments/storyEditor.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/js_main/main.js"
+    ],
+    "css": [
+      "assets/storyEditor-CEe-X7FG.css"
+    ]
+  },
+  "resources/js/js_main/vue_compoments/topicForumComp.vue": {
+    "file": "assets/topicForumComp-C-9nIScO.js",
+    "name": "topicForumComp",
+    "src": "resources/js/js_main/vue_compoments/topicForumComp.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/js_main/main.js"
+    ],
+    "css": [
+      "assets/topicForumComp-DMPEFwF3.css"
+    ]
+  }
+}
