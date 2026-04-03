@@ -137,7 +137,7 @@ Route::POST('/login', function (Request $request) {
     //Einfach abbrechen, keine Informationen liefern.
     try{
         $request->validate([
-            'name' => 'required|string|max:255',
+            'email' => 'required|email',
             'password' => 'required|min:2'
         ]);
     }catch (\Exception $e){
@@ -145,7 +145,7 @@ Route::POST('/login', function (Request $request) {
     }
 
     //Lädt aus Users
-    if(!Auth::attempt(['name' => request('name'), 'password' => request('password')])){
+    if(!Auth::attempt(['email' => request('email'), 'password' => request('password')])){
         return response()->json(["message" => "Login fehlgeschlagen"], 400);
     }
 

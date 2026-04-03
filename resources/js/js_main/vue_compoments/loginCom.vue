@@ -154,7 +154,7 @@ async function regis() {
 
 async function login() {
     const formdataLogin = {
-        name: loginName.value,
+       email: loginName.value,
         password: loginPassword.value,
     }
 
