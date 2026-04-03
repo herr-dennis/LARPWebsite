@@ -62,7 +62,6 @@
             </div>
 
 
-
             <button :disabled="!isChecked" type="submit">Registrieren</button>
 
             <div class="msgContainer" >
