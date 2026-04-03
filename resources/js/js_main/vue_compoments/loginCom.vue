@@ -9,7 +9,7 @@
 
             <div class="form-group">
             <label>Email</label>
-            <input type="text" v-model="loginName" placeholder="Ihr Name" required />
+            <input type="text" v-model="loginName" placeholder="Ihre E-Mail" required />
             </div>
 
             <div class="form-group">

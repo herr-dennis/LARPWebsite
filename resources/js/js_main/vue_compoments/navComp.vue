@@ -272,7 +272,7 @@ function directionTo(path) {
             <div class="nav-layer__backdrop"></div>
             <aside class="nav-layer__drawer" role="dialog" aria-modal="true">
                 <ul class="nav-layer__ul">
-                    <li class="nav-layer__li active">Home</li>
+                    <li @click="directionTo()"  class="nav-layer__li active">Home</li>
                     <li  @click="directionTo(currentRoutes[2].path)" class="nav-layer__li">{{ currentRoutes[2].label }}</li>
 
 

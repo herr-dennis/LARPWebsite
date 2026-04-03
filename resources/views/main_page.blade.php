@@ -8,7 +8,7 @@
 @section("main_content")
     <div class="banner-container">
         <h1 class="banner-container__title">
-            Willkommen auf unserer Website!
+            Willkommen auf unserer Website! <br>
 
            !!!! In der Entwicklung !!!
 
