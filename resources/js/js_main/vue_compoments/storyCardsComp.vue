@@ -41,15 +41,16 @@ function  diretionToURL(url){
 
 <style scoped lang="scss">
 
-
 .storyCardsWrapper {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 2rem;
-    width: 100%;
+    width: 90%;
     padding: 2rem 1rem;
     box-sizing: border-box;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 .storyCards {
@@ -146,8 +147,9 @@ function  diretionToURL(url){
     .storyCardsWrapper {
         flex-direction: column;
         align-items: center;
-    gap: 1.4rem;
+        gap: 1.4rem;
         padding: 1rem;
+
     }
 
     .storyCards {

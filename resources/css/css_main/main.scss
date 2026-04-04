@@ -1,31 +1,38 @@
-$defaultColor: rgb(121,255,211);
 
-*{
-   font-family: "Times New Roman", Helvetica, sans-serif;
-    line-height:1.5;
-    // font-family: sans-serif;
-   // font-family:"Tannenberg","Helvetica Neue";
+* {
+    box-sizing: border-box;
+    font-family: "Times New Roman", Helvetica, sans-serif;
+    line-height: 1.5;
+}
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
 }
 
+html,
+body {
+    margin: 0;
+}
 
-main{
-    width: 90%;
+body {
+    min-height: 100vh;
+}
+
+/* Seitencontainer */
+main {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    align-items: stretch;
 }
 
-html, body{
-    margin: 0;
-    min-height: 100%;
-
-}
+/* Vue-Mount-Element */
 #app {
     width: 100%;
-    //max-width: 1600px;
-    margin: 0 auto;
-
 }
 
 .defaultContainer p::first-letter {
@@ -81,10 +88,7 @@ body::before {
     -webkit-backface-visibility: hidden;
 }
 
-body, html {
-    height: 100%;
-    margin: 0;
-}
+
 
 
 .defaultContainer{
@@ -235,88 +239,72 @@ $color: #a32020;
     background: rgba(255, 0, 0, 0.8);
     transform: translateY(-3px);
 }
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&display=swap');
+
 .banner-container {
     width: 100%;
-    max-width: 900px;
-    margin: 2rem auto;
-    padding: 1.2rem 2rem;
-
-    background: linear-gradient(
-            145deg,
-            rgba(20, 20, 20, 0.95),
-            rgba(40, 10, 10, 0.9)
-    );
-
-    border-radius: 10px;
-    border: 2px solid rgba(120, 30, 30, 0.9);
-
-    box-shadow:
-        0 10px 30px rgba(0, 0, 0, 0.6),
-        inset 0 1px 0 rgba(255, 180, 180, 0.08),
-        inset 0 -1px 0 rgba(0, 0, 0, 0.5);
-
-    backdrop-filter: blur(4px);
-
+    max-width: 860px;
+    margin: 1.5rem auto;
+    padding: 0.9rem 2rem;
+    box-sizing: border-box;
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-
-    position: relative;
+    background: rgba(255,255,255,0.3);
 }
 
-/* leichter Glow-Rahmen */
+/* Dünner Rahmen mit Eck-Akzenten */
 .banner-container::before {
     content: "";
     position: absolute;
     inset: 0;
-    border-radius: 10px;
+    border: 1px solid #7a2020;
+    border-radius: 4px;
     pointer-events: none;
+}
 
-    box-shadow:
-        0 0 12px rgba(160, 40, 40, 0.3),
-        0 0 25px rgba(120, 20, 20, 0.2);
+/* Obere Trennlinie */
+.banner-container::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 12%;
+    width: 76%;
+    height: 1px;
+    background: linear-gradient(
+            to right,
+            transparent,
+            rgba(180, 50, 50, 0.5),
+            transparent
+    );
 }
 
 /* Text */
 .banner-container__title {
-    color: #f5eaea;
-    font-size: 1.6rem;
+    font-family: 'Cinzel', Georgia, serif;
+    font-size: 1.45rem;
     font-weight: 600;
+    letter-spacing: 0.12em;
     text-align: center;
+    margin: 0;
+}
 
-    letter-spacing: 0.05em;
-
-    text-shadow:
-        0 2px 6px rgba(0, 0, 0, 0.8),
-        0 0 6px rgba(120, 30, 30, 0.6);
+/* Erster Buchstabe rot */
+.banner-container__title::first-letter {
+    color: #c0392b;
+    font-size: 1.85rem;
+    line-height: 1;
 }
 
 /* Mobile */
 @media (max-width: 600px) {
     .banner-container {
-        padding: 0.8rem 1rem;
-    }
-
-    .banner-container__title {
-        font-size: 1.2rem;
+        width: calc(100% - 2rem);
+        margin: 1rem auto;
+        padding: 0.6rem 1rem;
     }
 }
-.banner-container::after {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 10%;
-    width: 80%;
-    height: 2px;
-
-    background: linear-gradient(
-            to right,
-            transparent,
-            rgba(180, 60, 60, 0.8),
-            transparent
-    );
-}
-
 
 
 .footer {
