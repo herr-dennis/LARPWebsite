@@ -21,12 +21,8 @@
 <body>
 
 <main>
-
-
-    <div class="bg"></div>
     @section("main_content")
     @show
-
 </main>
 
 

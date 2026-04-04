@@ -181,7 +181,9 @@ function nl2p(text) {
         .map(line => `<p>${escapeHtml(line)}</p>`)
         .join("");
 }
-
+const filteredStories = computed(() => {
+    return stories.value.filter(story => story != null);
+});
 
 </script>
 
@@ -193,7 +195,7 @@ function nl2p(text) {
             <div class="defaultContainer__a" >
                 <div >
                     <a
-                        v-for="story in stories"
+                        v-for="story in filteredStories"
                         :key="story.id"
                         :href="'#' + story.id"
                     >
@@ -205,12 +207,10 @@ function nl2p(text) {
         </div>
 
     </teleport>
-    <div class="DefaultBtnContainer">
-        <div class="defaultBtn"  v-if="isLoggedIn && admin">
-            <button type="button"  @click="toggleInsertWindow" class="FormDefaultContainer__Button"  >Neuer Eintrage verfassen</button>
-        </div>
 
-    </div>
+        <div  class="DefaultBtnContainer"  v-if="isLoggedIn && admin">
+            <button   class="DefaultBtn"   type="button"  @click="toggleInsertWindow"  >Neuer Eintrage verfassen</button>
+        </div>
 
        <div  v-show="showInsertWindow"  class="FormDefaultContainer">
            <form  class="FormDefaultContainer__Form"    enctype="multipart/form-data" @submit.prevent="handleInsertAction">
@@ -228,7 +228,10 @@ function nl2p(text) {
 
     <div v-for="story in stories" :key="story.id" :id="story.id" class="defaultContainer">
 
-        <button type="button" class="DefaultBtn" v-if="isLoggedIn&&admin"  @click.stop="openDialog(story.id)" >Löschen</button>
+        <div class="DefaultBtnContainer">
+            <button type="button" class="DefaultBtn" v-if="isLoggedIn&&admin"  @click.stop="openDialog(story.id)" >Löschen</button>
+        </div>
+
 
         <h2 v-if="story.title">{{ story.title}}</h2>
 
