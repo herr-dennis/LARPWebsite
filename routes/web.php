@@ -36,7 +36,7 @@ Route::get("/Datenschutz", function () {
 });
 
 Route::get("/Impressum", function () {
-    return view('impressumView');
+    return view('impressumview');
 });
 
 Route::get('/ueber-uns/story', function () {
@@ -859,7 +859,7 @@ Route::post("/api/storage/multi",function(Request $request)
 
     $request->validate([
         'files' => ['required', 'array'],
-        'files.*' => ['required', 'file', 'mimes:jpg,jpeg,png,pdf,webp', 'max:5120'],
+        'files.*' => ['required', 'file', 'mimes:jpg,jpeg,png,pdf,webp'],
     ]);
 
     $uploadedFiles = [];

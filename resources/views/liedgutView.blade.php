@@ -1,6 +1,6 @@
 @extends("layouts.default_layout")
 
-
+@section("title", "Liedgut")
 @section("main_content")
     <div class="defaultContainer" >
         <p>

@@ -1,5 +1,5 @@
 @extends("layouts.default_layout")
-
+@section("title", "Taalagrad")
 
 @section("main_content")
     <div id="StoryHeader" ></div>

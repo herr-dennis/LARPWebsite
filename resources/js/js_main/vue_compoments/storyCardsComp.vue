@@ -1,9 +1,7 @@
 <script setup>
-
 import logoTaal from '../../images/newTaalLogo.png'
 import logoDonnerfels from '../../images/donnfelsLogo.png'
 import logoEckland from '../../images/ecklandLogo.png'
-const donnerfelsULR = "/ueber-uns/story/donnerfels";
 
 function  diretionToURL(url){
     window.location.href = url;
@@ -13,10 +11,9 @@ function  diretionToURL(url){
 
 <template>
 
-
     <div   @click.stop="diretionToURL('/ueber-uns/story/talagrad')"  class="storyCardsWrapper">
         <div class="storyCards">
-            <label>Taalagard</label>
+            <label>Taalagrad</label>
             <div class="storyCard">
                 <img :src="logoTaal" alt="logoTaal">
             </div>

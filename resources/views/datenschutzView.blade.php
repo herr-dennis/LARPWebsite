@@ -1,6 +1,6 @@
 
 @extends("layouts.default_layout")
-
+@section("title", "Datenschutz")
 @section("main_content")
 
 

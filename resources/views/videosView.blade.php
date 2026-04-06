@@ -1,5 +1,5 @@
 @extends("layouts.default_layout")
-
+@section("title", "Videos")
 
 @section("main_content")
     < <div class="defaultContainer" >

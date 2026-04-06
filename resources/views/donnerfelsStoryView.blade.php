@@ -1,6 +1,6 @@
 @extends("layouts.default_layout")
 
-
+@section("title", "Donnerfels")
 
 @section("main_content")
 

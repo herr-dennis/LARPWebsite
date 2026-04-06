@@ -1,7 +1,7 @@
 @extends("layouts.default_layout")
 
 
-
+@section("title", "Kontakt")
 
 @section("main_content")
 

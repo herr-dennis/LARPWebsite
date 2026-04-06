@@ -1,5 +1,5 @@
 @extends("layouts.default_layout")
-
+@section("title", "Impressum")
 @section("main_content")
 
     <div id="app" ></div>

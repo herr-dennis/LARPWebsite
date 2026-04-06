@@ -1,6 +1,8 @@
 @extends("layouts.default_layout")
 
 
+@section("title", "Gallery")
+
 @section("main_content")
 
 
