@@ -79,6 +79,22 @@
         </form>
     </div>
         </div>
+
+    <div class="trennlinie"></div>
+
+    <<div class="defaultContainer">
+    <p>
+        Durch die Registrierung erhalten Sie Zugriff auf das Forum.
+        Mit der Registrierung stimmen Sie außerdem den allgemeinen Nutzerregeln der LARP-Gruppe zu.
+        Den Link dazu finden Sie hier:
+    </p>
+    <div class="defaultContainer__a">
+        <a href="#">Nutzerregeln</a>
+    </div>
+
+</div>
+
+
 </template>
 
 <script setup>

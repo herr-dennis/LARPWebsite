@@ -69,6 +69,9 @@ onBeforeUnmount(() => {
             </div>
         </div>
     </div>
+
+
+    <div class="trennlinie"></div>
 </template>
 
 <style scoped lang="scss">
@@ -117,7 +120,7 @@ onBeforeUnmount(() => {
 .slideImage {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: contain;
     border-radius: 6px;
     transition: opacity 0.5s ease;
 }

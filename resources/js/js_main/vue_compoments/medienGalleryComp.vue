@@ -65,7 +65,7 @@ async function uploadFiles() {
         const data = await response.json()
 
         if (!response.ok) {
-            message.value = data.message || "Upload fehlgeschlagen"
+            message.value = data.message + data.errors || "Upload fehlgeschlagen"
             return
         }
         message.value = "Upload erfolgreich"
@@ -111,7 +111,7 @@ function resetAuswahl(){
 </script>
 
 <template>
-
+    <div class="trennlinie"></div>
     <div class="medienGallery">
         <div
             v-for="(pic, i) in galleryPic"
@@ -156,7 +156,7 @@ function resetAuswahl(){
                     </li>
                 </ul>
              <button type="submit" >Upload....</button>
-                <p v-if="message">{{ message }}</p>
+                <p  class="altertContainer" v-if="message">{{ message }}</p>
             </div>
 
         </form>
@@ -181,7 +181,7 @@ function resetAuswahl(){
 .medienGallery__item {
     width: 100%;
     background: rgba(20, 20, 20, 0.75);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(120, 30, 30, 0.95);
     border-radius: 18px;
     overflow: hidden;
     box-shadow: 0 8px 22px rgba(0, 0, 0, 0.22);

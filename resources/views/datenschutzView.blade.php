@@ -5,7 +5,7 @@
 
 
     <div id="app" ></div>
-
+    <div class="trennlinie"></div>
 <div class="defaultContainer" >
     <h2>Datenschutzerklärung</h2>
 <h2>1. Allgemeine Hinweise</h2>

@@ -856,11 +856,18 @@ Route::post("/api/storage/multi",function(Request $request)
     if (!Auth::check() || Auth::user()->role !== 1) {
         return response()->json(['message' => 'Unauthorized'], 401);
     }
-
+    try {
     $request->validate([
         'files' => ['required', 'array'],
         'files.*' => ['required', 'file', 'mimes:jpg,jpeg,png,pdf,webp'],
     ]);
+    } catch (Exception $e) {
+    return response()->json([
+        'message' => 'Validation failed',
+        'errors' => $e->getMessage()
+    ], 422);
+}
+
 
     $uploadedFiles = [];
 

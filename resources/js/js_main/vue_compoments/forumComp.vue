@@ -185,7 +185,7 @@ function HandleInsertRubrik(){
 
     </div>
 
-
+    <div class="trennlinie"></div>
 </template>
 
 <style scoped lang="scss">

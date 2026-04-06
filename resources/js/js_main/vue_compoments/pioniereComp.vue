@@ -125,7 +125,7 @@ function handleRemoveClick(id){
 
     <div class="steckbriefWrapper"  >
         <div  v-for="pionier in pioniers" :key="pionier.id" class="steckbriefContainer">
-
+            <div class="trennlinie"></div>
             <button class="steckbriefContainer__button"  @click="handleRemoveClick(pionier.id)" >X</button>
 
             <p class="steckbriefContainer__p"  >Quartett {{pionier.name}}</p>
