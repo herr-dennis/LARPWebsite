@@ -13,7 +13,7 @@ function directionToUrl(url){
 </script>
 
 <template>
-
+    <div class="trennlinie"></div>
     <div class="storyCardsWrapper">
 
         <div @click="directionToUrl('/handwerk/metall')" class="storyCards">

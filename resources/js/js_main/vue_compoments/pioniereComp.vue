@@ -124,11 +124,11 @@ function handleRemoveClick(id){
 <template>
 
     <div class="steckbriefWrapper"  >
-        <div  v-for="pionier in pioniers" :key="pionier.id" class="steckbriefContainer">
-            <div class="trennlinie"></div>
-            <button class="steckbriefContainer__button"  @click="handleRemoveClick(pionier.id)" >X</button>
 
+        <div  v-for="pionier in pioniers" :key="pionier.id" class="steckbriefContainer">
+            <button class="steckbriefContainer__button" v-if="admin&&isLoggedIn"  @click="handleRemoveClick(pionier.id)" >X</button>
             <p class="steckbriefContainer__p"  >Quartett {{pionier.name}}</p>
+            <div class="trennlinie"></div>
             <img loading="lazy" :src="'/storage/'+pionier.image" alt="SteckbriefLogo" >
 
             <label class="steckbriefContainer__label"  >Bewaffnung:</label>
@@ -141,7 +141,6 @@ function handleRemoveClick(id){
             <p class="steckbriefContainer__p" >{{pionier.geburtstag}}</p>
             <label class="steckbriefContainer__label" >Beschreibung</label>
             <blockquote class="steckbriefContainer__blockquote" >{{pionier.text}}</blockquote>
-
         </div>
 
     </div>

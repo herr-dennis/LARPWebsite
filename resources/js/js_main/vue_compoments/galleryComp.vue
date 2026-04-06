@@ -50,6 +50,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
+    <div class="trennlinie"></div>
     <div class="galleryContainer">
         <div class="gallery">
             <p v-if="loading">Lade Galerie…</p>
