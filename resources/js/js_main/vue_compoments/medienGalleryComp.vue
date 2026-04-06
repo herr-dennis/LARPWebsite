@@ -70,6 +70,8 @@ async function uploadFiles() {
         }
         message.value = "Upload erfolgreich"
         files.value = []
+        galleryPic.value = data
+
     } catch (error) {
         message.value = "Netzwerkfehler"
     } finally {
@@ -101,6 +103,32 @@ async function getPicsForGallery(){
 
 getPicsForGallery();
 
+async function deletePic(url){
+
+     console.log(url);
+
+     const response = await fetch("/api/storage/multi",{
+         method: "DELETE",
+         headers:{
+             "Accept": "application/json",
+             "X-CSRF-TOKEN": csrf,
+             "content-type": "application/json",
+         },
+         body: JSON.stringify({file:url})
+     })
+    if(!response){
+        alert("Fehler")
+    }
+    const data = await response.json();
+    galleryPic.value=data;
+
+}
+
+function handleDeletePic(url){
+    deletePic(url);
+
+}
+
 function resetAuswahl(){
     files.value = []
 
@@ -118,6 +146,7 @@ function resetAuswahl(){
             :key="i"
             class="medienGallery__item"
         >
+            <div v-if="isAdmin&&isLoggedIn" class="medienGallery__delete"  @click.stop="handleDeletePic(pic)" >Löschen</div>
             <img
                 class="medienGallery__image"
                 :src="pic"
@@ -177,7 +206,12 @@ function resetAuswahl(){
     padding: 1rem 0;
     box-sizing: border-box;
 }
+.medienGallery__delete {
 
+    cursor: pointer;
+    color:white;
+    margin:2px;
+}
 .medienGallery__item {
     width: 100%;
     background: rgba(20, 20, 20, 0.75);

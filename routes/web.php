@@ -881,8 +881,47 @@ Route::post("/api/storage/multi",function(Request $request)
         ];
     }
 
-    return response()->json([
-        'message' => 'Dateien erfolgreich hochgeladen',
-        'files' => $uploadedFiles
-    ]);
+    $files = Storage::disk("public")->files("Gallery");
+    $files = array_filter($files, function ($file) {
+        return $file !== '.gitignore';
+    });
+    $files = array_values($files);
+    $files = array_map(function ($file) {
+        return Storage::url($file);
+    }, $files);
+
+    return response()->json($files);
+});
+/*
+ * Bekommt file Parameter, file ist URL+Filename
+ */
+Route::delete("/api/storage/multi",function(Request $request){
+    if (!Auth::check() || Auth::user()->role !== 1) {
+        return response()->json(['message' => 'Unauthorized'], 401);
+    }
+
+    if(!$request->has('file')){
+        return response()->json(['message' => 'File not found'], 404);
+    }
+
+    $file = str_replace('/storage/', '', $request->input('file'));
+
+    try {
+        Storage::disk('public')->delete($file);
+    }
+    catch (\Exception $e){
+        return response()->json(['message' => $e->getMessage()], 500);
+    }
+
+    $files = Storage::disk("public")->files("Gallery");
+    $files = array_filter($files, function ($file) {
+        return $file !== '.gitignore';
+    });
+    $files = array_values($files);
+    $files = array_map(function ($file) {
+        return Storage::url($file);
+    }, $files);
+
+    return response()->json($files);
+
 });
