@@ -57,7 +57,7 @@
     "src": "resources/js/images/newTaalLogo.png"
   },
   "resources/js/js_main/main.js": {
-    "file": "assets/main-BdsX1kKJ.js",
+    "file": "assets/main-CkKpoZku.js",
     "name": "main",
     "src": "resources/js/js_main/main.js",
     "isEntry": true,
@@ -79,14 +79,14 @@
       "resources/js/js_main/vue_compoments/medienGalleryComp.vue"
     ],
     "css": [
-      "assets/main-BZiGE-LG.css"
+      "assets/main-CDgfyl_h.css"
     ],
     "assets": [
       "assets/logo_deus_taal-DjcUnOmi.png"
     ]
   },
   "resources/js/js_main/vue_compoments/adminComp.vue": {
-    "file": "assets/adminComp-FegVvDYW.js",
+    "file": "assets/adminComp-CEYH3qQn.js",
     "name": "adminComp",
     "src": "resources/js/js_main/vue_compoments/adminComp.vue",
     "isDynamicEntry": true,
@@ -98,7 +98,7 @@
     ]
   },
   "resources/js/js_main/vue_compoments/forumComp.vue": {
-    "file": "assets/forumComp-BU49Y5x5.js",
+    "file": "assets/forumComp-ChVddX0U.js",
     "name": "forumComp",
     "src": "resources/js/js_main/vue_compoments/forumComp.vue",
     "isDynamicEntry": true,
@@ -110,7 +110,7 @@
     ]
   },
   "resources/js/js_main/vue_compoments/galleryComp.vue": {
-    "file": "assets/galleryComp-BUK4P07p.js",
+    "file": "assets/galleryComp-asFkynN4.js",
     "name": "galleryComp",
     "src": "resources/js/js_main/vue_compoments/galleryComp.vue",
     "isDynamicEntry": true,
@@ -118,11 +118,11 @@
       "resources/js/js_main/main.js"
     ],
     "css": [
-      "assets/galleryComp-Cg7C9sGz.css"
+      "assets/galleryComp-D4Iz7rAC.css"
     ]
   },
   "resources/js/js_main/vue_compoments/handwerkCardsComp.vue": {
-    "file": "assets/handwerkCardsComp-BWEFraVB.js",
+    "file": "assets/handwerkCardsComp-CeZTjWdv.js",
     "name": "handwerkCardsComp",
     "src": "resources/js/js_main/vue_compoments/handwerkCardsComp.vue",
     "isDynamicEntry": true,
@@ -140,7 +140,7 @@
     ]
   },
   "resources/js/js_main/vue_compoments/kontaktComp.vue": {
-    "file": "assets/kontaktComp-BtSiNHtr.js",
+    "file": "assets/kontaktComp-oMJGar71.js",
     "name": "kontaktComp",
     "src": "resources/js/js_main/vue_compoments/kontaktComp.vue",
     "isDynamicEntry": true,
@@ -152,7 +152,7 @@
     ]
   },
   "resources/js/js_main/vue_compoments/loginCom.vue": {
-    "file": "assets/loginCom-Bf4eDs_J.js",
+    "file": "assets/loginCom-NAtP8fWf.js",
     "name": "loginCom",
     "src": "resources/js/js_main/vue_compoments/loginCom.vue",
     "isDynamicEntry": true,
@@ -164,7 +164,7 @@
     ]
   },
   "resources/js/js_main/vue_compoments/medienComp.vue": {
-    "file": "assets/medienComp-xY_uPK3I.js",
+    "file": "assets/medienComp-CDUVw0a5.js",
     "name": "medienComp",
     "src": "resources/js/js_main/vue_compoments/medienComp.vue",
     "isDynamicEntry": true,
@@ -181,7 +181,7 @@
     ]
   },
   "resources/js/js_main/vue_compoments/medienGalleryComp.vue": {
-    "file": "assets/medienGalleryComp-Jyrz1L8M.js",
+    "file": "assets/medienGalleryComp-BL0C1Lhm.js",
     "name": "medienGalleryComp",
     "src": "resources/js/js_main/vue_compoments/medienGalleryComp.vue",
     "isDynamicEntry": true,
@@ -193,7 +193,7 @@
     ]
   },
   "resources/js/js_main/vue_compoments/pioniereComp.vue": {
-    "file": "assets/pioniereComp-Cncmw5wU.js",
+    "file": "assets/pioniereComp-DeWpoCjy.js",
     "name": "pioniereComp",
     "src": "resources/js/js_main/vue_compoments/pioniereComp.vue",
     "isDynamicEntry": true,
@@ -205,7 +205,7 @@
     ]
   },
   "resources/js/js_main/vue_compoments/postsForumComp.vue": {
-    "file": "assets/postsForumComp-CarWp929.js",
+    "file": "assets/postsForumComp-BNBT0Op-.js",
     "name": "postsForumComp",
     "src": "resources/js/js_main/vue_compoments/postsForumComp.vue",
     "isDynamicEntry": true,
@@ -217,7 +217,7 @@
     ]
   },
   "resources/js/js_main/vue_compoments/storyCardsComp.vue": {
-    "file": "assets/storyCardsComp-DdCzYg2o.js",
+    "file": "assets/storyCardsComp-T_BPqVT8.js",
     "name": "storyCardsComp",
     "src": "resources/js/js_main/vue_compoments/storyCardsComp.vue",
     "isDynamicEntry": true,
@@ -234,7 +234,7 @@
     ]
   },
   "resources/js/js_main/vue_compoments/storyEditor.vue": {
-    "file": "assets/storyEditor-DIos0EF9.js",
+    "file": "assets/storyEditor-0w0-1d3-.js",
     "name": "storyEditor",
     "src": "resources/js/js_main/vue_compoments/storyEditor.vue",
     "isDynamicEntry": true,
@@ -246,7 +246,7 @@
     ]
   },
   "resources/js/js_main/vue_compoments/topicForumComp.vue": {
-    "file": "assets/topicForumComp-VeXJxroy.js",
+    "file": "assets/topicForumComp-lwkj52vn.js",
     "name": "topicForumComp",
     "src": "resources/js/js_main/vue_compoments/topicForumComp.vue",
     "isDynamicEntry": true,
