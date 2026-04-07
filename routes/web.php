@@ -50,7 +50,9 @@ Route::get('/medien', function () {
 Route::get('/ueber-uns/kontakt', function () {
     return view('kontaktView');
 });
-
+Route::get('/ueber-uns/ot-zelt', function () {
+    return view('otZeltView');
+});
 Route::get('/handwerk', function () {
     return view('handwerkView');
 });

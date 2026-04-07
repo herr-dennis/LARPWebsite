@@ -15,14 +15,6 @@
     <div class="vue-mount" data-component="Gallery"  ></div>
     <div id="app" data-page="home"></div>
 
-<div class="defaultContainer" >
-    <p>
-        Unser Spiel ist Low-Fantasy, rau und immersiv – <br>
-        ganz nach dem Prinzip: „Du kannst, was du darstellen kannst.“
-    </p>
-</div>
-
 <div class="vue-mount" data-component="Newsfeed"  ></div>
-
 
 @endsection

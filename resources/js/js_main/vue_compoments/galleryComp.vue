@@ -73,6 +73,20 @@ onBeforeUnmount(() => {
 
 
     <div class="trennlinie"></div>
+
+      <div  class="defaultContainer" >
+
+          Unser Spiel ist Low-Fantasy, rau und immersiv –
+          ganz nach dem Prinzip: „Du kannst, was du darstellen kannst.
+
+      </div>
+
+
+    <div  class="defaultContainer">
+        <h1>Newsletter</h1>
+        <p>Hier findet Sie alle neuen Veranstaltungen und Events! Bei Fragen meldet Sie sich!</p>
+    </div>
+
 </template>
 
 <style scoped lang="scss">
