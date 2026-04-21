@@ -12,7 +12,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 /*
@@ -24,6 +23,9 @@ use Illuminate\Support\Facades\Storage;
 */
 
 Route::get('/', function () {
+
+
+
     return view('main_page');
 });
 
@@ -51,7 +53,11 @@ Route::get('/ueber-uns/kontakt', function () {
     return view('kontaktView');
 });
 Route::get('/ueber-uns/ot-zelt', function () {
-    return view('otZeltView');
+
+    $user_role = Auth::user()->role;
+
+
+    return view('otZeltView', ['user_role' => $user_role]);
 });
 Route::get('/handwerk', function () {
     return view('handwerkView');
@@ -602,7 +608,7 @@ Route::delete("/api/ueber-uns/{name}/{id}",function($name,$id){
 Route::get("/api/ueber-uns/pioniere",function(){
 
     try{
-        $data = Pionier::all();
+        $data = Pionier::all()->shuffle();
         return response()->json($data, 200);
 
     }catch (\Exception $e){

@@ -2,7 +2,7 @@
 @section("title", "Impressum")
 @section("main_content")
 
-    <div id="app" ></div>
+
     <div class="defaultContainer" >
 
     <h1>Impressum</h1>
@@ -66,5 +66,9 @@
 
 
     </div>
+
+
+    <div id="app"  data-page="kontakt" ></div>
+
 
 @endsection

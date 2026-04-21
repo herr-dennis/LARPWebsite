@@ -7,6 +7,7 @@
 
     <div id="app" ></div>
 
+
     <div class="defaultContainer"    >
         <p>Liste der Geschichten</p>
         <div class="defaultContainer__a" >
@@ -53,4 +54,6 @@
         <p>Wappenkunde in Eckland</p>
         <img src="{{asset("images/wappen.jpg")}}" alt="images/favicon.png"   >
     </div>
+
+
 @endsection
