@@ -7,6 +7,8 @@
 
     <div id="app" ></div>
 
+    <p>{{$checked}}</p>
+    @if($checked===true)
 
     <div class="defaultContainer"    >
         <p>Liste der Geschichten</p>
@@ -55,5 +57,14 @@
         <img src="{{asset("images/wappen.jpg")}}" alt="images/favicon.png"   >
     </div>
 
+
+
+    @else
+
+        <div  class="defaultContainer">
+            <p>Sie müssen eingeloggt sein, um auf das OT-Zelt zugreifen zu können</p>
+        </div>
+
+    @endif
 
 @endsection

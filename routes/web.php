@@ -54,10 +54,17 @@ Route::get('/ueber-uns/kontakt', function () {
 });
 Route::get('/ueber-uns/ot-zelt', function () {
 
-    $user_role = Auth::user()->role;
+    $checked = null;
+
+    if(!Auth::check()) {
+        $checked = false;
+    }
+    else{
+        $checked = true;
+    }
 
 
-    return view('otZeltView', ['user_role' => $user_role]);
+    return view('otZeltView', ['checked' => $checked]);
 });
 Route::get('/handwerk', function () {
     return view('handwerkView');
