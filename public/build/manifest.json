@@ -12,6 +12,10 @@
     "file": "assets/background_final-C_kOT3aN.png",
     "src": "resources/css/images/background_final.png"
   },
+  "resources/js/images/char.png": {
+    "file": "assets/char-Ct2rVHEH.png",
+    "src": "resources/js/images/char.png"
+  },
   "resources/js/images/donnfelsLogo.png": {
     "file": "assets/donnfelsLogo-bRJKBWYP.png",
     "src": "resources/js/images/donnfelsLogo.png"
@@ -57,7 +61,7 @@
     "src": "resources/js/images/newTaalLogo.png"
   },
   "resources/js/js_main/main.js": {
-    "file": "assets/main-CkKpoZku.js",
+    "file": "assets/main-BbR2BsyQ.js",
     "name": "main",
     "src": "resources/js/js_main/main.js",
     "isEntry": true,
@@ -76,7 +80,8 @@
       "resources/js/js_main/vue_compoments/pioniereComp.vue",
       "resources/js/js_main/vue_compoments/medienComp.vue",
       "resources/js/js_main/vue_compoments/adminComp.vue",
-      "resources/js/js_main/vue_compoments/medienGalleryComp.vue"
+      "resources/js/js_main/vue_compoments/medienGalleryComp.vue",
+      "resources/js/js_main/vue_compoments/charakterOverViewComp.vue"
     ],
     "css": [
       "assets/main-CDgfyl_h.css"
@@ -86,7 +91,7 @@
     ]
   },
   "resources/js/js_main/vue_compoments/adminComp.vue": {
-    "file": "assets/adminComp-CEYH3qQn.js",
+    "file": "assets/adminComp-DsM43KGG.js",
     "name": "adminComp",
     "src": "resources/js/js_main/vue_compoments/adminComp.vue",
     "isDynamicEntry": true,
@@ -97,8 +102,20 @@
       "assets/adminComp-Bi1_Wrrt.css"
     ]
   },
+  "resources/js/js_main/vue_compoments/charakterOverViewComp.vue": {
+    "file": "assets/charakterOverViewComp-BZx8IzmW.js",
+    "name": "charakterOverViewComp",
+    "src": "resources/js/js_main/vue_compoments/charakterOverViewComp.vue",
+    "isDynamicEntry": true,
+    "imports": [
+      "resources/js/js_main/main.js"
+    ],
+    "css": [
+      "assets/charakterOverViewComp-GPMPNf0a.css"
+    ]
+  },
   "resources/js/js_main/vue_compoments/forumComp.vue": {
-    "file": "assets/forumComp-ChVddX0U.js",
+    "file": "assets/forumComp-BeWyJR-g.js",
     "name": "forumComp",
     "src": "resources/js/js_main/vue_compoments/forumComp.vue",
     "isDynamicEntry": true,
@@ -110,7 +127,7 @@
     ]
   },
   "resources/js/js_main/vue_compoments/galleryComp.vue": {
-    "file": "assets/galleryComp-asFkynN4.js",
+    "file": "assets/galleryComp-Az3BgHBC.js",
     "name": "galleryComp",
     "src": "resources/js/js_main/vue_compoments/galleryComp.vue",
     "isDynamicEntry": true,
@@ -122,7 +139,7 @@
     ]
   },
   "resources/js/js_main/vue_compoments/handwerkCardsComp.vue": {
-    "file": "assets/handwerkCardsComp-CeZTjWdv.js",
+    "file": "assets/handwerkCardsComp-CIfxohnB.js",
     "name": "handwerkCardsComp",
     "src": "resources/js/js_main/vue_compoments/handwerkCardsComp.vue",
     "isDynamicEntry": true,
@@ -140,7 +157,7 @@
     ]
   },
   "resources/js/js_main/vue_compoments/kontaktComp.vue": {
-    "file": "assets/kontaktComp-oMJGar71.js",
+    "file": "assets/kontaktComp-C6WCX15B.js",
     "name": "kontaktComp",
     "src": "resources/js/js_main/vue_compoments/kontaktComp.vue",
     "isDynamicEntry": true,
@@ -152,7 +169,7 @@
     ]
   },
   "resources/js/js_main/vue_compoments/loginCom.vue": {
-    "file": "assets/loginCom-NAtP8fWf.js",
+    "file": "assets/loginCom-DO4OEvGc.js",
     "name": "loginCom",
     "src": "resources/js/js_main/vue_compoments/loginCom.vue",
     "isDynamicEntry": true,
@@ -164,7 +181,7 @@
     ]
   },
   "resources/js/js_main/vue_compoments/medienComp.vue": {
-    "file": "assets/medienComp-CDUVw0a5.js",
+    "file": "assets/medienComp-Bjc03yLW.js",
     "name": "medienComp",
     "src": "resources/js/js_main/vue_compoments/medienComp.vue",
     "isDynamicEntry": true,
@@ -181,7 +198,7 @@
     ]
   },
   "resources/js/js_main/vue_compoments/medienGalleryComp.vue": {
-    "file": "assets/medienGalleryComp-BL0C1Lhm.js",
+    "file": "assets/medienGalleryComp-CtEPeXrj.js",
     "name": "medienGalleryComp",
     "src": "resources/js/js_main/vue_compoments/medienGalleryComp.vue",
     "isDynamicEntry": true,
@@ -193,7 +210,7 @@
     ]
   },
   "resources/js/js_main/vue_compoments/pioniereComp.vue": {
-    "file": "assets/pioniereComp-DeWpoCjy.js",
+    "file": "assets/pioniereComp-C-oMmvwk.js",
     "name": "pioniereComp",
     "src": "resources/js/js_main/vue_compoments/pioniereComp.vue",
     "isDynamicEntry": true,
@@ -205,7 +222,7 @@
     ]
   },
   "resources/js/js_main/vue_compoments/postsForumComp.vue": {
-    "file": "assets/postsForumComp-BNBT0Op-.js",
+    "file": "assets/postsForumComp-AZI8bVF_.js",
     "name": "postsForumComp",
     "src": "resources/js/js_main/vue_compoments/postsForumComp.vue",
     "isDynamicEntry": true,
@@ -217,7 +234,7 @@
     ]
   },
   "resources/js/js_main/vue_compoments/storyCardsComp.vue": {
-    "file": "assets/storyCardsComp-T_BPqVT8.js",
+    "file": "assets/storyCardsComp-pHfCN0H_.js",
     "name": "storyCardsComp",
     "src": "resources/js/js_main/vue_compoments/storyCardsComp.vue",
     "isDynamicEntry": true,
@@ -225,16 +242,17 @@
       "resources/js/js_main/main.js"
     ],
     "css": [
-      "assets/storyCardsComp-CVhP89-H.css"
+      "assets/storyCardsComp-DLLdYKte.css"
     ],
     "assets": [
       "assets/newTaalLogo-D3VdWwXb.png",
       "assets/donnfelsLogo-bRJKBWYP.png",
-      "assets/ecklandLogo-Rxw3N7fX.png"
+      "assets/ecklandLogo-Rxw3N7fX.png",
+      "assets/char-Ct2rVHEH.png"
     ]
   },
   "resources/js/js_main/vue_compoments/storyEditor.vue": {
-    "file": "assets/storyEditor-0w0-1d3-.js",
+    "file": "assets/storyEditor-oTAEvfaC.js",
     "name": "storyEditor",
     "src": "resources/js/js_main/vue_compoments/storyEditor.vue",
     "isDynamicEntry": true,
@@ -242,11 +260,11 @@
       "resources/js/js_main/main.js"
     ],
     "css": [
-      "assets/storyEditor-DpAW7vRd.css"
+      "assets/storyEditor-BvN2j2Yp.css"
     ]
   },
   "resources/js/js_main/vue_compoments/topicForumComp.vue": {
-    "file": "assets/topicForumComp-lwkj52vn.js",
+    "file": "assets/topicForumComp-CBPhPxfV.js",
     "name": "topicForumComp",
     "src": "resources/js/js_main/vue_compoments/topicForumComp.vue",
     "isDynamicEntry": true,

@@ -17,6 +17,7 @@ export function resolvePageComponent(page) {
         medien: defineAsyncComponent(() => import('./vue_compoments/medienComp.vue')),
         admin: defineAsyncComponent(() => import('./vue_compoments/adminComp.vue')),
         medienGallery: defineAsyncComponent(() => import('./vue_compoments/medienGalleryComp.vue')),
+        charakterOverView: defineAsyncComponent(() => import('./vue_compoments/charakterOverViewComp.vue'))
     };
 
     return pageMap[page] || null;

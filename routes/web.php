@@ -1,6 +1,7 @@
 <?php
 
 use App\Mail\ContactFormMail;
+use App\Models\Charakters;
 use App\Models\DonnerfelsStory;
 use App\Models\EcklandStory;
 use App\Models\Pionier;
@@ -39,6 +40,14 @@ Route::get("/Datenschutz", function () {
 
 Route::get("/Impressum", function () {
     return view('impressumview');
+});
+
+Route::get("/ueber-uns/story/charakter", function (){
+
+
+
+
+    return view('charakterView');
 });
 
 Route::get('/ueber-uns/story', function () {
@@ -727,9 +736,106 @@ Route::post("/api/ueber-uns/kontakt",function(Request $request){
 
 
 });
+/*
+|--------------------------------------------------------------------------
+| Charakter HANDLE
+|--------------------------------------------------------------------------
+|
+|
+*/
+Route::post("/api/ueber-uns/story/charakter",function(Request $request){
+
+    if (!Auth::check() || (Auth::user()->role === 2 ) || (Auth::user()->role ===3)) {
+        return response()->json(['message' => 'Unauthorized'], 401);
+    }
+
+    $name = $request->input('name') ;
+    $text = $request->input('text') ;
+
+    $path = null;
+
+    try {
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+
+            if ($image->isValid()) {
+                $path = $image->store('Charakter', 'public');
+            }
+        }
+    } catch (\Exception $e) {
+        return response()->json(['message' => $e->getMessage()], 502);
+    }
+
+    try{
+        $data = \App\Models\Charakters::query()->create([
+            'name' => $name,
+            'text' => $text,
+            'image' => $path
+
+        ]);
+        $newData= Charakters::all();
+        return response()->json($newData, 200);
+
+    }catch (\Exception $e){
+        return response()->json(["message" => $e->getMessage()], 500);
+    }
+
+});
+
+ Route::get("/api/ueber-uns/story/charakter",function(Request $request){
+
+     try{
+         $data = Charakters::all();
+         return response()->json($data);
+     }catch (\Exception $e){
+        return response()->json(['message' => $e->getMessage()], 500);
+     }
+
+ });
+Route::get("/ueber-uns/story/charakter/{id}",function(Request $request, $id){
+
+    try{
+        $data = Charakters::query()->find($id);
+
+    }catch (\Exception $e){
+        return response()->json(['message' => $e->getMessage()], 500);
+    }
+
+    return view("charakterDescriptionView", ["data" =>$data]);
+
+});
+
+Route::delete("/api/ueber-uns/story/charakter/{id}", function ($id) {
+
+    try {
+        $charakter = Charakters::query()->findOrFail($id);
+
+        $imagePath = $charakter->image;
 
 
 
+
+        $charakter->delete();
+
+
+
+        if ($imagePath && Storage::disk('public')->exists($imagePath)) {
+            Storage::disk('public')->delete($imagePath);
+        }
+
+        $data = Charakters::all();
+
+        return response()->json([
+            'message' => 'Charakter gelöscht',
+            'data' => $data
+        ], 200);
+
+    } catch (\Exception $e) {
+        return response()->json([
+            'message' => $e->getMessage()
+        ], 500);
+    }
+})->whereNumber("id");
 
 /*
 |--------------------------------------------------------------------------

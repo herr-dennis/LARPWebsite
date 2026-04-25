@@ -149,7 +149,6 @@ function openDialog(id) {
 
  async function deleteStorys(){
 
-
     const response = await fetch(props.postUrl+"/"+currentDeleteStory.value, {
         method: "DELETE",
         headers:{
@@ -161,10 +160,8 @@ function openDialog(id) {
           alert("Fehler beim Löschvorgang");
      }
 
-
      const data = await response.json();
      stories.value = data;
-
 
 }
 

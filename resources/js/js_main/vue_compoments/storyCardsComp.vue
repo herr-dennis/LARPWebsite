@@ -2,7 +2,7 @@
 import logoTaal from '../../images/newTaalLogo.png'
 import logoDonnerfels from '../../images/donnfelsLogo.png'
 import logoEckland from '../../images/ecklandLogo.png'
-
+import char from '../../images/char.png'
 function  diretionToURL(url){
     window.location.href = url;
 }
@@ -32,6 +32,14 @@ function  diretionToURL(url){
                 <img :src="logoEckland" alt="logoTaal">
             </div>
         </div>
+
+        <div  @click.stop="diretionToURL('/ueber-uns/story/charakter')"  class="storyCards">
+            <label>Charakter</label>
+            <div class="storyCard">
+                <img :src="char" alt="logoTaal">
+            </div>
+        </div>
+
     </div>
 
 </template>
