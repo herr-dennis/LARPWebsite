@@ -1,5 +1,5 @@
 <script setup>
-import {computed,  onMounted, ref, watch} from "vue";
+import {computed, onBeforeUnmount, onMounted, ref, watch} from "vue";
 const csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
 import { useAuthStore } from '../stores/authStore.js'
 const authStore = useAuthStore();
@@ -10,6 +10,9 @@ const msg = ref("");
 const stories = ref([]);
 const showAlertDialog = ref(false);
 const currentDeleteStory = ref(null);
+const selectedImage = ref(null);
+
+
 import AlertDialog from "./altertWindow.vue"
 
 //Einstellungen
@@ -130,7 +133,11 @@ async function getStories() {
     }
 }
 
+onBeforeUnmount(() => {
+    window.removeEventListener('keydown', handleKeydown)
+})
 onMounted(() => {
+    window.addEventListener('keydown', handleKeydown)
     getStories();
 });
 
@@ -165,6 +172,18 @@ function openDialog(id) {
 
 }
 
+function openLightbox(pic) {
+    console.log("Aus storyEditor"+ pic)
+    selectedImage.value = pic
+}
+
+function closeLightbox() {
+    selectedImage.value = null
+}function handleKeydown(event) {
+    if (event.key === 'Escape') {
+        closeLightbox()
+    }
+}
 function handleDelete(id) {
     showAlertDialog.value = false;
     deleteStorys();
@@ -234,8 +253,18 @@ const filteredStories = computed(() => {
 
         <div v-html="nl2p(story.text)"></div>
 
-        <img loading="lazy" v-if="story.image" :src="baseUrl + story.image" alt="Bild">
+        <img loading="lazy" v-if="story.image"
+              :src="baseUrl + story.image" alt="Bild"
+              @click="openLightbox(baseUrl + story.image)"
 
+        >
+
+        <div v-if="selectedImage" class="lightbox" @click="closeLightbox">
+            <div class="lightbox__content" @click.stop>
+                <button class="lightbox__close" @click="closeLightbox">×</button>
+                <img class="lightbox__image" :src="selectedImage" alt="">
+            </div>
+        </div>
     </div>
 
     <AlertDialog
@@ -249,4 +278,54 @@ const filteredStories = computed(() => {
 <style scoped lang="scss">
 @use "../../../../resources/css/css_main/defaultForm.scss";
 @use "../../../../resources/css/css_main/defaultButton";
+
+
+.lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.82);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    z-index: 9999;
+    box-sizing: border-box;
+}
+
+.lightbox__content {
+    position: relative;
+    max-width: 95vw;
+    max-height: 95vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.lightbox__image {
+    max-width: 95vw;
+    max-height: 90vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 14px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.45);
+    background: #111;
+}
+
+.lightbox__close {
+    position: absolute;
+    top: -0.75rem;
+    right: -0.75rem;
+    width: 42px;
+    height: 42px;
+    border: none;
+    border-radius: 50%;
+    background: rgba(20, 20, 20, 0.92);
+    color: white;
+    font-size: 1.6rem;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28);
+}
+
+
 </style>

@@ -62,7 +62,7 @@ async function deleteStorys(id){
     }
 
     const data = await response.json();
-    charakter.value = data.data;
+    charakter.value = data.dat;
 
 }
 

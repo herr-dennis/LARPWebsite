@@ -22,7 +22,7 @@ const routes = {
             path: "ueber-uns",
             children: [
                 { label: "Story", path: "ueber-uns/story" },
-                { label: "Pioniere", path: "ueber-uns/pioniere" },
+                { label: "Quartett", path: "ueber-uns/pioniere" },
                 { label: "Kontakt", path: "ueber-uns/kontakt" },
                 { label: "OT-Zelt", path: "ueber-uns/ot-zelt" },
             ],
