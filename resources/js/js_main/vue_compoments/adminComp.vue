@@ -1,13 +1,17 @@
 <script setup>
-const csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
 import {useAuthStore} from '../stores/authStore.js'
 import {computed, onMounted, ref} from "vue";
+import UserVerwaltung from './admin_sub_comps/UserVerwaltung.vue'
+import StoryVerwaltung from './admin_sub_comps/StoryVerwaltung.vue'
+
+const csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
 
 const authStore = useAuthStore();
-const admin = computed( ()=> authStore.adminState)
-const isLoggedIn = computed( ()=> authStore.isLoggedIn)
+const admin = computed(() => authStore.adminState)
+const isLoggedIn = computed(() => authStore.isLoggedIn)
 const users = ref([]);
-
+const stories = ref([]);
+const activeView = ref('users')   // neu: welche Ansicht ist aktiv
 
 async function getUsers(){
 
@@ -69,27 +73,29 @@ function deleteUser(id) {
 
 }
 
-
 </script>
 
 <template>
-
-    <div v-if="isLoggedIn" class="userContainer">
-        <div v-for="user in users" :key="user.id">
-            <label>{{ user.name }}</label>
-
-            <select v-model="user.role">
-                <option :value="1">Admin</option>
-                <option :value="2">Moderator</option>
-                <option :value="3">User</option>
-            </select>
-
-            <button @click="updateRole(user.id , user.role)">Speichern</button>
-            <button @click="deleteUser(user.id)">Löschen</button>
-        </div>
+    <div   class ="tabs">
+        <button  class="tabBtn"  :class="{ active: activeView === 'users' }" @click="activeView = 'users'">
+            User Verwaltung
+        </button>
+        <button  class="tabBtn"  :class="{ active: activeView === 'stories' }" @click="activeView = 'stories'">
+            Story Verwaltung
+        </button>
     </div>
 
+    <hr>
 
+    <div v-if="isLoggedIn">
+        <UserVerwaltung
+            v-if="activeView === 'users'"
+            :users="users"
+            @update-role="updateRole"
+            @delete-user="deleteUser"
+        />
+        <StoryVerwaltung v-else-if="activeView === 'stories'"/>
+    </div>
 </template>
 
 <style scoped lang="scss">
@@ -123,7 +129,7 @@ function deleteUser(id) {
 .userContainer label {
     color: #fff;
     font-size: 0.95rem;
-    text-shadow: 0 0 4px rgba(0,0,0,0.7);
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.7);
 }
 
 /* Select */
@@ -165,6 +171,23 @@ function deleteUser(id) {
     .userContainer select,
     .userContainer button {
         width: 100%;
+    }
+}
+.tabBtn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.3);
+    }
+
+    &.active {
+        background: #dc2929;
     }
 }
 </style>

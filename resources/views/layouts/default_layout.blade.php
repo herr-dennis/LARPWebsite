@@ -7,7 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite(['resources/css/css_main/main.scss', 'resources/js/js_main/main.js'])
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>@yield('title', 'Startseite')</title>
+    <title>@yield('title', 'Startseite | LARP | Eckland | Talagrad')</title>
+    <meta name="description" content="@yield('desc', 'Eckland-LARP Startseite')">
     <link rel="icon" type="image/x-icon" href={{asset("images/favicon.png")}}>
     <meta name="robots" content="index, follow">
 

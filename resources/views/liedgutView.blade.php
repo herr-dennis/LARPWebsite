@@ -1,6 +1,7 @@
 @extends("layouts.default_layout")
 
-@section("title", "Liedgut")
+@section("title", "Liedgut von Eckland-LARP ")
+@section("desc", "Selbst geschriebene Lieder für Talaagrad!")
 @section("main_content")
     <div class="defaultContainer" >
         <p>

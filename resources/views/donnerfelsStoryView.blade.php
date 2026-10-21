@@ -1,6 +1,7 @@
 @extends("layouts.default_layout")
 
-@section("title", "Donnerfels")
+@section("title", "Donnerfels-Geschichten")
+@section("desc", "Hier befinden sich alle Geschichten vom Donnerfels")
 
 @section("main_content")
 

@@ -1,6 +1,7 @@
 
 @extends("layouts.default_layout")
 @section("title", "Datenschutz")
+@section("desc", "Datenschutz-Seite der Website Eckland-LARP")
 @section("main_content")
 
 

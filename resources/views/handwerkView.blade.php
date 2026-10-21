@@ -1,6 +1,7 @@
 @extends("layouts.default_layout")
 
-@section("title", "Handwerk")
+@section("title", "Handwerk von Eckland")
+@section("desc", "Handwerk ist groß geschrieben! Wir machen viel selbst. Von Metall bis Holz")
 @section("main_content")<div class="defaultContainer">
     <p>
         Wir haben in unseren Reihen sehr kreative und handwerklich begabte Menschen!

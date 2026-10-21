@@ -1,8 +1,8 @@
 @extends("layouts.default_layout")
 
 
-@section("title", "Gallery")
-
+@section("title", "Gallery-Viele schöne Fotos!")
+@section("desc", "Hier befinden sich alle Fotos unserer Events! ")
 @section("main_content")
 
 

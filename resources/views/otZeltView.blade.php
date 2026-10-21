@@ -1,7 +1,8 @@
 @extends("layouts.default_layout")
 
 
-
+@section("title", "Outtime | Die OT-Bubble")
+@section("desc", "Hier werden OT-Sachen besprochen")
 @section("main_content")
 
 
