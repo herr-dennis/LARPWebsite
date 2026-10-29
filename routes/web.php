@@ -10,6 +10,7 @@ use App\Models\Posts;
 use App\Models\Rubric;
 use App\Models\TalagradStory;
 use App\Models\Topic;
+use App\Models\Videos;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -1120,4 +1121,31 @@ Route::post('/api/events', function (Request $request) {
 Route::get('/api/events', function () {
     return Event::orderBy('starts_at')
         ->get(['id', 'title', 'description', 'starts_at', 'ends_at']);
+});
+Route::get('/api/videos', function () {
+    return Videos::orderBy('position')->get();
+});
+
+Route::post('/api/videos', function (Request $request) {
+    if (!Auth::check()) {
+        return response()->json(['message' => 'Nicht eingeloggt'], 403);
+    }
+    $data = $request->validate([
+        'title'       => 'required|string|max:255',
+        'description' => 'nullable|string',
+        'url'         => 'required|url|max:2048',
+    ]);
+
+    Videos::create($data);
+    return Videos::orderBy('position')->get();
+});
+
+Route::delete('/api/videos/{video}', function (Videos $video) {
+    if (!Auth::check()) {
+        return response()->json(['message' => 'Nicht eingeloggt'], 403);
+    }
+
+    $video->delete();
+
+    return Videos::orderBy('position')->get();
 });
