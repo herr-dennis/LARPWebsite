@@ -4,10 +4,12 @@ import { ref, onMounted, onBeforeUnmount } from "vue"
 const galleryURLs = ref([])
 const loading = ref(true)
 const error = ref(null)
-
+const events = ref([])
 const currentIndex = ref(0)
 let interval = null
-
+const props = defineProps({
+    getUrl: { type: String, default: '/api/events' }
+})
 const next = () => {
     if (galleryURLs.value.length === 0) return
     currentIndex.value =
@@ -30,7 +32,27 @@ const startAutoSlide = () => {
 const stopAutoSlide = () => {
     if (interval) clearInterval(interval)
 }
+async function loadEvents() {
+    loading.value = true
+    error.value = false
 
+    try {
+        const res = await fetch(props.getUrl, {
+            headers: { 'Accept': 'application/json' }
+        })
+
+        if (!res.ok) {
+            error.value = true
+            return
+        }
+
+        events.value = await res.json()
+    } catch (e) {
+        error.value = true
+    } finally {
+        loading.value = false
+    }
+}
 onMounted(async () => {
     try {
         const res = await fetch("/api/pictures")
@@ -42,10 +64,22 @@ onMounted(async () => {
     } finally {
         loading.value = false
     }
-})
 
+    await loadEvents()
+})
+function formatDate(value) {
+    if (!value) return ''
+    return new Date(value).toLocaleString('de-DE', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit',
+    })
+}
 onBeforeUnmount(() => {
     stopAutoSlide()
+
 })
 </script>
 
@@ -74,18 +108,75 @@ onBeforeUnmount(() => {
 
     <div class="trennlinie"></div>
 
-      <div  class="defaultContainer" >
+    <div class="defaultContainer">
+        <p>
+            Unser Spiel ist Low-Fantasy, rau und immersiv –
+            ganz nach dem Prinzip: „Du kannst, was du darstellen kannst.“
+        </p>
 
-          Unser Spiel ist Low-Fantasy, rau und immersiv –
-          ganz nach dem Prinzip: „Du kannst, was du darstellen kannst.
+        <p>Lust auf uns? Melde dich einfach. Wir sind vertreten auf:</p>
 
-      </div>
+        <div class="sozial__media">
+            <a class="sozial__link instagram"
+               href="https://www.instagram.com/DEIN_ACCOUNT"
+               target="_blank" rel="noopener noreferrer" aria-label="Eckland-LARP auf Instagram">
+                <span class="sozial__icon"></span>
+                <span>Instagram</span>
+            </a>
 
+            <a class="sozial__link facebook"
+               href="https://www.facebook.com/DEINE_SEITE"
+               target="_blank" rel="noopener noreferrer" aria-label="Eckland-LARP auf Facebook">
+                <span class="sozial__icon"></span>
+                <span>Facebook</span>
+            </a>
 
-    <div  class="defaultContainer">
-        <h1>Newsletter</h1>
-        <p>Hier findet Sie alle neuen Veranstaltungen und Events! Bei Fragen meldet Sie sich!</p>
+            <a class="sozial__link discord"
+               href="https://discord.gg/DEIN_INVITE"
+               target="_blank" rel="noopener noreferrer" aria-label="Eckland-LARP auf Discord">
+                <span class="sozial__icon"></span>
+                <span>Discord</span>
+            </a>
+        </div>
+
+        <p>Oder einfach auf dieser Website unter <a class="kontakt" href="/ueber-uns/kontakt">Kontakt</a>.</p>
     </div>
+    <div class="trennlinie"></div>
+
+
+
+    <div class="defaultContainer">
+        <p>
+            Es gibt viele gute Events. Hier werden die kommenden Events aufgelistet.
+        </p>
+
+        <p>
+            Lust, in eine andere Welt einzutauchen? Melde dich einfach!
+            In unserer LARP-Gruppe gibt es Spieler mit über 15 Jahren Erfahrung,
+            die sich immer über neues, frisches Blut freuen.
+        </p>
+
+        <p>
+            Bei ernsthaftem Interesse können wir Leihkleidung zum Ausprobieren stellen.
+        </p>
+    </div>
+
+    <section class="eventList">
+        <p v-if="loading" class="eventList__info">Lade Neuigkeiten...</p>
+        <p v-else-if="error" class="eventList__info">Neuigkeiten konnten nicht geladen werden.</p>
+        <p v-else-if="!events.length" class="eventList__info">Aktuell keine Termine.</p>
+
+        <article v-for="event in events" :key="event.id" class="eventCard">
+            <h3>{{ event.title }}</h3>
+
+            <p class="eventCard__date">
+                {{ formatDate(event.starts_at) }}
+                <span v-if="event.ends_at"> – {{ formatDate(event.ends_at) }}</span>
+            </p>
+
+            <p v-if="event.description" class="eventCard__text">{{ event.description }}</p>
+        </article>
+    </section>
 
 </template>
 
@@ -224,4 +315,105 @@ onBeforeUnmount(() => {
         right: 4px;
     }
 }
+
+
+.eventList {
+    width: 100%;
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 0 15px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    color: #fff;
+}
+
+.eventList__info {
+    text-align: center;
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.7);
+}
+
+.eventCard {
+    padding: 14px 18px;
+    border-radius: 12px;
+    border-left: 4px solid #dc2929;
+
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.7);
+
+    h3 {
+        margin: 0 0 4px;
+        font-size: 1.15rem;
+    }
+
+    &__date {
+        margin: 0 0 10px;
+        font-size: 0.85rem;
+        color: #dc9a9a;
+    }
+
+    &__text {
+        margin: 0;
+        line-height: 1.5;
+        white-space: pre-line;   // Zeilenumbrüche aus der Beschreibung bleiben erhalten
+    }
+}
+
+.sozial__media {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 12px 0;
+}
+
+.sozial__link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 8px 14px;
+    border-radius: 10px;
+
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(6px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+
+    color: #fff;
+    text-decoration: none;
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.7);
+    transition: all 0.2s ease;
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.15);
+        transform: translateY(-2px);
+    }
+
+    &:focus-visible {
+        outline: 2px solid #dc2929;
+        outline-offset: 2px;
+    }
+}
+
+// Icon als Maske: übernimmt die Textfarbe (currentColor) und lässt sich per CSS einfärben
+.sozial__icon {
+    width: 20px;
+    height: 20px;
+    background-color: currentColor;
+
+    -webkit-mask: var(--icon) center / contain no-repeat;
+    mask: var(--icon) center / contain no-repeat;
+    transition: color 0.2s ease;
+}
+
+.instagram { .sozial__icon { --icon: url('/img/icons/instagram.svg'); } &:hover { color: #e4405f; } }
+.facebook  { .sozial__icon { --icon: url('/img/icons/facebook.svg');  } &:hover { color: #4c8df6; } }
+.discord   { .sozial__icon { --icon: url('/img/icons/discord.svg');   } &:hover { color: #7983f5; } }
+.kontakt{
+    color: white;
+
+}
+
 </style>

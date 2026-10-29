@@ -4,6 +4,7 @@ use App\Mail\ContactFormMail;
 use App\Models\Charakters;
 use App\Models\DonnerfelsStory;
 use App\Models\EcklandStory;
+use App\Models\Event;
 use App\Models\Pionier;
 use App\Models\Posts;
 use App\Models\Rubric;
@@ -1099,4 +1100,24 @@ Route::post('/api/stories/move', function (Request $request) {
     });
 
     return $model::orderBy('position')->get();
+});
+
+
+Route::post('/api/events', function (Request $request) {
+    if (!Auth::check()) {
+        return response()->json(['message' => 'Nicht eingeloggt'], 403);
+    }
+
+    $data = $request->validate([
+        'title'       => 'required|string|max:255',
+        'description' => 'nullable|string',
+        'starts_at'   => 'required|date',
+        'ends_at'     => 'nullable|date|after_or_equal:starts_at',
+    ]);
+
+    return Event::create($data);
+});
+Route::get('/api/events', function () {
+    return Event::orderBy('starts_at')
+        ->get(['id', 'title', 'description', 'starts_at', 'ends_at']);
 });

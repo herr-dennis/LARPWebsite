@@ -3,6 +3,7 @@ import {useAuthStore} from '../stores/authStore.js'
 import {computed, onMounted, ref} from "vue";
 import UserVerwaltung from './admin_sub_comps/UserVerwaltung.vue'
 import StoryVerwaltung from './admin_sub_comps/StoryVerwaltung.vue'
+import NewsVerwaltung from './admin_sub_comps/newsInsertComp.vue'
 
 const csrf = document.querySelector('meta[name="csrf-token"]').getAttribute('content')
 
@@ -83,6 +84,10 @@ function deleteUser(id) {
         <button  class="tabBtn"  :class="{ active: activeView === 'stories' }" @click="activeView = 'stories'">
             Story Verwaltung
         </button>
+        <button  class="tabBtn"  :class="{ active: activeView === 'news' }" @click="activeView = 'news'">
+           Events
+        </button>
+
     </div>
 
     <hr>
@@ -95,6 +100,11 @@ function deleteUser(id) {
             @delete-user="deleteUser"
         />
         <StoryVerwaltung v-else-if="activeView === 'stories'"/>
+        <NewsVerwaltung v-else-if="activeView === 'news'">
+
+        </NewsVerwaltung>
+
+
     </div>
 </template>
 
