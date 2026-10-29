@@ -118,21 +118,21 @@ onBeforeUnmount(() => {
 
         <div class="sozial__media">
             <a class="sozial__link instagram"
-               href="https://www.instagram.com/DEIN_ACCOUNT"
+               href="https://www.instagram.com/talagrader.sturmpioniere/"
                target="_blank" rel="noopener noreferrer" aria-label="Eckland-LARP auf Instagram">
                 <span class="sozial__icon"></span>
                 <span>Instagram</span>
             </a>
 
             <a class="sozial__link facebook"
-               href="https://www.facebook.com/DEINE_SEITE"
+               href="https://www.facebook.com/KaiserreichEcklandTalagradsSturmpioniere/"
                target="_blank" rel="noopener noreferrer" aria-label="Eckland-LARP auf Facebook">
                 <span class="sozial__icon"></span>
                 <span>Facebook</span>
             </a>
 
             <a class="sozial__link discord"
-               href="https://discord.gg/DEIN_INVITE"
+               href="https://discord.gg/"
                target="_blank" rel="noopener noreferrer" aria-label="Eckland-LARP auf Discord">
                 <span class="sozial__icon"></span>
                 <span>Discord</span>
