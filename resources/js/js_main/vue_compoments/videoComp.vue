@@ -141,7 +141,7 @@ onMounted(()=>{
 </script>
 
 <template>
-    <button   type="button" class="FormDefaultContainer__Button"   @click.stop="toggleInsertWindow" >
+    <button v-if="isLoggedIn && admin"  type="button" class="FormDefaultContainer__Button"   @click.stop="toggleInsertWindow" >
         Videos einfügen</button>
     <div v-if="isLoggedIn && admin" v-show="showForm" class="FormDefaultContainer">
         <p>Videos einfügen</p>
