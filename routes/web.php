@@ -11,6 +11,7 @@ use App\Models\TalagradStory;
 use App\Models\Topic;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
@@ -449,7 +450,7 @@ Route::post('/api/ueber-uns/donnerfels', function (Request $request) {
 Route::get("/api/ueber-uns/donnerfels",function(Request $request){
 
     try{
-        $data = DonnerfelsStory::all();
+        $data = DonnerfelsStory::orderBy('position')->get();
         return response()->json($data, 200);
 
     }catch (\Exception $e){
@@ -463,7 +464,7 @@ Route::get("/api/ueber-uns/donnerfels",function(Request $request){
 Route::get("/api/ueber-uns/talagrad",function(Request $request){
 
     try{
-        $data = TalagradStory::all();
+        $data = TalagradStory::orderBy('position')->get();
         return response()->json($data, 200);
 
     }catch (\Exception $e){
@@ -513,7 +514,7 @@ Route::post('/api/ueber-uns/talagrad', function (Request $request) {
 Route::get("/api/ueber-uns/eckland",function(Request $request){
 
     try{
-        $data = EcklandStory::all();
+        $data = EcklandStory::orderBy('position')->get();
         return response()->json($data, 200);
 
     }catch (\Exception $e){
@@ -1045,4 +1046,57 @@ Route::delete("/api/storage/multi",function(Request $request){
 
     return response()->json($files);
 
+});
+
+
+
+
+
+Route::post('/api/stories/move', function (Request $request) {
+
+    if (!Auth::check()) {
+        return response()->json(['message' => 'Nicht eingeloggt'], 403);
+    }
+
+    // Validierung zuerst, danach sind die Werte garantiert vorhanden und gültig
+    $data = $request->validate([
+        'db'        => 'required|in:donnerfels,talagrad,eckland',
+        'pos'       => 'required|integer',
+        'direction' => 'required|in:up,down',
+    ]);
+
+    // Whitelist: Region -> Model-Klasse
+    $models = [
+        'donnerfels' => DonnerfelsStory::class,
+        'talagrad'   => TalagradStory::class,
+        'eckland'    => EcklandStory::class,
+    ];
+    $model = $models[$data['db']];
+
+    DB::transaction(function () use ($model, $data) {
+        $current = $model::where('position', $data['pos'])->lockForUpdate()->first();
+
+        if (!$current) {
+            return;
+        }
+
+        // up = nächsthöhere Position, down = nächstniedrigere (wie in deinem Code, bei Bedarf umdrehen)
+        $neighbor = $data['direction'] === 'up'
+            ? $model::where('position', '<', $current->position)
+                ->orderByDesc('position')->lockForUpdate()->first()
+            : $model::where('position', '>', $current->position)
+                ->orderBy('position')->lockForUpdate()->first();
+
+        if (!$neighbor) {
+            return;   // schon ganz oben bzw. unten
+        }
+
+        $posA = $current->position;
+        $posB = $neighbor->position;
+
+        $model::where('id', $current->id)->update(['position' => $posB]);
+        $model::where('id', $neighbor->id)->update(['position' => $posA]);
+    });
+
+    return $model::orderBy('position')->get();
 });

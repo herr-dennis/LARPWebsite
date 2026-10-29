@@ -1,9 +1,11 @@
 <?php
 
+use App\Models\EcklandStory;
 use App\Models\Rubric;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 
